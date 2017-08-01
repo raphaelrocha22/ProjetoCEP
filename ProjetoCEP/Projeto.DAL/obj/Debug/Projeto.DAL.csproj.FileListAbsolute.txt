@@ -1,0 +1,9 @@
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.dll
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.dll
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
+D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
