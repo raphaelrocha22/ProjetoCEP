@@ -7,5 +7,6 @@ namespace Projeto.WEB.Models.Home
 {
     public class Cadastro
     {
+        public string Nome { get; set; }
     }
 }
