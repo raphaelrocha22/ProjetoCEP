@@ -1,76 +1,65 @@
-﻿@model Projeto.WEB.Models.Home.Cadastro
+﻿@model Projeto.WEB.Models.Home.HomeViewModelCadastro
 
 @{
     ViewBag.Title = "Cadastro";
     Layout = "~/Views/Templates/Layout.cshtml";
 }
 
-<h2>Cadastro</h2>
+<h4>Cadastro de Usuário</h4>
+<br />
+@Html.ActionLink("Voltar para a página inicial", "Index")
+<hr />
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
-        <h4>Cadastro de Usuário</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="col-md-4">
-
-            @Html.LabelFor(model => model.Nome)<br />
-            @Html.TextBoxFor(model => model.Nome, new
-       {
-           htmlAttributes =
-           new { @class = "form-control", @placeholder = "Digite aqui" }
-       })
-            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            <br /><br />
-
-            @Html.LabelFor(model => model.Login)<br />
-            @Html.TextBoxFor(model => model.Login, new
-           {
-               htmlAttributes =
-               new { @class = "form-control", @placeholder = "Digite aqui" }
-           })
-            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-            <br /><br />
-
-
-            @Html.LabelFor(model => model.Senha)<br />
-            @Html.PasswordFor(model => model.Senha, new
-           {
-               htmlAttributes =
-               new { @class = "form-control", @placeholder = "Digite aqui" }
-           })
-            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
-            <br /><br />
-
-
-            @Html.LabelFor(model => model.SenhaConfirm)<br />
-            @Html.PasswordFor(model => model.SenhaConfirm, new
-           {
-               htmlAttributes =
-               new { @class = "form-control", @placeholder = "Digite aqui" }
-           })
-            @Html.ValidationMessageFor(model => model.SenhaConfirm, "", new { @class = "text-danger" })
-            <br /><br />
-
-
-            @Html.LabelFor(model => model.DataCadastro)<br />
-            @Html.TextBoxFor(model => model.DataCadastro, new
-           {
-               htmlAttributes =
-               new { @class = "form-control" }
-           })
-            @Html.ValidationMessageFor(model => model.DataCadastro, "", new { @class = "text-danger" })
-            <br /><br />
-
-            <input type="submit" value="Cadastrar Usuario" class="btn btn-default" />
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.PasswordFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SenhaConfirm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.PasswordFor(model => model.SenhaConfirm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SenhaConfirm, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Cadastrar Usuário" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                @ViewBag.Mensagem
+            </div>
+        </div>
+
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

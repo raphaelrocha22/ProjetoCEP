@@ -73,8 +73,9 @@ namespace Projeto.DAL.Persistencias
 
             if (dr.Read())
             {
-                u.Nome = (String)dr["Usuario"];
-                u.Login = (string)dr["Senha"];
+                u = new Usuario();
+                u.Nome = (string)dr["Nome"];
+                u.Login = (string)dr["Login"];
                 u.DataCadastro = (DateTime)dr["DataCadastro"];
             }
 

@@ -14,13 +14,13 @@ namespace Projeto.DAL.Conexoes
         protected SqlCommand cmd;
         protected SqlDataReader dr;
 
-        public void AbrirConexao()
+        protected void AbrirConexao()
         {
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDcep"].ConnectionString);
             con.Open();
         }
 
-        public void FecharConexao()
+        protected void FecharConexao()
         {
             con.Close();
         }

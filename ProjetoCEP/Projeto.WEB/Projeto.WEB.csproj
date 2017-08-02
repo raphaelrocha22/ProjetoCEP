@@ -92,8 +92,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\LoginTemplate.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Areas\AreaRestrita\Views\web.config" />
+    <Content Include="Areas\AreaRestrita\Views\Template\Layout.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\CEP\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -104,6 +108,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="HomeWallpaper.jpg" />
+    <Content Include="Imagens\LoginWallpapper.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -112,11 +117,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\CEPController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Home\Cadastro.cs" />
+    <Compile Include="Models\Home\HomeViewModelCadastro.cs" />
+    <Compile Include="Models\Home\HomeViewModelLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +132,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Templates\Layout.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Cadastro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -135,7 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagens\" />
+    <Folder Include="Areas\AreaRestrita\Models\" />
+    <Folder Include="Areas\AreaRestrita\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Projeto.DAL\Projeto.DAL.csproj">
@@ -145,6 +154,10 @@
     <ProjectReference Include="..\Projeto.Entidades\Projeto.Entidades.csproj">
       <Project>{b3f29f39-f05f-4a7b-8c50-30c0048ac4fc}</Project>
       <Name>Projeto.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Projeto.Util\Projeto.Util.csproj">
+      <Project>{77ead906-262b-45de-8588-60d55145fae3}</Project>
+      <Name>Projeto.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
