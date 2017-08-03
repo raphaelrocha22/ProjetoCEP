@@ -62,7 +62,7 @@ namespace Projeto.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastro(HomeViewModelCadastro model)
+        public JsonResult Cadastro(HomeViewModelCadastro model)
         {
             if (ModelState.IsValid)
             {
@@ -79,18 +79,15 @@ namespace Projeto.WEB.Controllers
                     d.Inserir(u);
 
                     ModelState.Clear();
-                    ViewBag.Mensagem = "Usuário cadastrado com sucesso";
+                    return Json($"Usuario {u.Login}, cadastrado com sucesso.");
 
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = $"Erro: {e.Message}";
-                }
-                
+                    return Json(e.Message);
+                }   
             }
-
-
-            return View();
+            return Json(View(model));
         }
     }
 }
