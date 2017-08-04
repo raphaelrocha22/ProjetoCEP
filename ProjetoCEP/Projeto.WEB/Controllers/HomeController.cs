@@ -20,7 +20,7 @@ namespace Projeto.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(HomeViewModelLogin model)
+        public JsonResult Index(HomeViewModelLogin model)
         {
             if (ModelState.IsValid)
             {
@@ -37,7 +37,7 @@ namespace Projeto.WEB.Controllers
 
                         Session.Add("usuario", u);
 
-                        return RedirectToAction("Index","CEP",new { area = "AreaRestrita" });
+                        return Json("/AreaRestrita/CEP/Index/", JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
@@ -53,7 +53,7 @@ namespace Projeto.WEB.Controllers
             }
 
 
-            return View();
+            return Json("Dados inválidos");
         }
 
         public ActionResult Cadastro()
@@ -87,7 +87,7 @@ namespace Projeto.WEB.Controllers
                     return Json(e.Message);
                 }   
             }
-            return Json(View(model));
+            return Json("Dados inválidos");
         }
     }
 }
