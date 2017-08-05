@@ -55,7 +55,15 @@
                                 <div class="col-sm-12 controls">
                                     <input type="submit" value="Cadastrar" class="btn btn-primary center-block" style="width:100px" />
                                     <br />
-                                    <span class="alert-info" role="alert">@ViewBag.Mensagem</span>
+
+                                @if (ViewBag.Resultado != null)
+                                {
+                                    if (ViewBag.Resultado)
+                                    {<div class="alert alert-success">@ViewBag.Mensagem</div>}
+                                    else
+                                    {<div class="alert alert-danger">@ViewBag.Mensagem</div>}
+                                }
+
                                 </div>
                             </div>
 

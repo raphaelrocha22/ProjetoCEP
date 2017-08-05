@@ -104,3 +104,4 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\bin\Projeto.Util.pdb
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.csprojResolveAssemblyReference.cache
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\bin\NLog.config

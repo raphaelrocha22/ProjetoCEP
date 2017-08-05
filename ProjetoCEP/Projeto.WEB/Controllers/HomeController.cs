@@ -8,6 +8,7 @@ using Projeto.WEB.Models.Home;
 using Projeto.Entidades;
 using Projeto.DAL.Persistencias;
 using System.Web.Security;
+using Projeto.Util;
 
 namespace Projeto.WEB.Controllers
 {
@@ -41,20 +42,21 @@ namespace Projeto.WEB.Controllers
                     }
                     else
                     {
-                        throw new Exception("Acesso negado, usuário ou senha incorretos");
+                        ViewBag.Mensagem = "Acesso negado, usuário ou senha incorretos";
                     }
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = e.Message;
+                    ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema";
+                    Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
                 }
             }
             return View();
         }
 
         public ActionResult Cadastro()
-        {           
-            return PartialView();
+        {
+            return View();
         }
 
         [HttpPost]
@@ -75,14 +77,25 @@ namespace Projeto.WEB.Controllers
                     d.Inserir(u);
 
                     ModelState.Clear();
+                    ViewBag.Resultado = true;
                     ViewBag.Mensagem = $"Usuario {u.Login}, cadastrado com sucesso.";
+
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = e.Message;
+                    ViewBag.resultado = false;
+                    if (e.HResult == -2146232060)
+                    {
+                        ViewBag.Mensagem = "Este usuário já existe, por favor escolha outro";
+                    }
+                    else
+                    {
+                        ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema";
+                        Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
+                    }                
                 }   
             }
-            return PartialView("Cadastro");
+            return View();
         }
     }
 }

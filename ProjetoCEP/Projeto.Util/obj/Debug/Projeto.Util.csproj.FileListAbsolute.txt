@@ -3,3 +3,8 @@ D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.dll
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.pdb
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.dll
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.csprojResolveAssemblyReference.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.pdb
