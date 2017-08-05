@@ -46,7 +46,12 @@
                                     <div class="col-sm-12 controls">
                                         <input type="submit" value="Login" class="btn btn-primary center-block" style="width:100px" />
                                         <br />
-                                        <span class="text-danger">@ViewBag.Mensagem</span>
+                                        @if (ViewBag.Mensagem != null)
+                                        {<div class="alert alert-danger">@ViewBag.Mensagem</div>}
+
+                                        @if (Request.QueryString["ReturnUrl"] != null)
+                                        { <div class="alert alert-danger"> Acesso não permitido, por favor faça seu login. </div> }
+
                                     </div>
                                 </div>
 
