@@ -104,15 +104,18 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\AreaRestrita\Views\Template\Layout.cshtml" />
-    <Content Include="Areas\AreaRestrita\Views\CEP\Index.cshtml" />
     <Content Include="HomeWallpaper.jpg" />
+    <Content Include="Imagens\IFRJ.png" />
     <Content Include="Imagens\LoginWallpapper.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\AreaRestrita\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\CEP\Index.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\CEP\CalcularLimites.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\CEP\HistoricoLimites.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -127,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\CEPController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -152,7 +156,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\AreaRestrita\Models\" />
-    <Folder Include="Areas\AreaRestrita\Views\Shared\" />
+    <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>

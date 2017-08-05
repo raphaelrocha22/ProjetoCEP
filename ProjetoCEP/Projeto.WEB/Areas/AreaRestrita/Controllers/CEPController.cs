@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 {
     [Authorize]
@@ -11,6 +12,16 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
     {
         // GET: AreaRestrita/CEP
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult CalcularLimites()
+        {
+            return View();
+        }
+
+        public ActionResult HistoricoLimites()
         {
             return View();
         }
