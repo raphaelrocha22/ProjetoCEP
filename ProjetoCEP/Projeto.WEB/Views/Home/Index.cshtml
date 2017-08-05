@@ -1,215 +1,68 @@
-﻿
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
+﻿@model Projeto.WEB.Models.Home.HomeViewModelLogin
+    
+@{
+        ViewBag.Title = "Index";
+    }
 
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
+    <head>
 
-    <title>COTI Informatica</title>
+        <title>Controle Estatistico de Processo</title>
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    </head>
 
-    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <body background="~/Imagens/LoginWallpapper.jpg">
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+        @using (Html.BeginForm())
+        {
 
-            $.validator.addMethod("regex",
-                function (value, element, regexp) {
-                    var teste = regexp.test(value);
-                    alert(regexp + " " + value + " " + teste)
-                    return teste;
-                }
-            );
-
-            $("#cadastroform").validate({
-                rules: {
-                    nome: {
-                        required: true,
-                        regex: /^[A-Za-z ]{4,50}$/,
-                        minlenght: 4,
-                        maxlenght: 20,
-                    },
-                    login: {
-                        required: true,
-                        minlenght: 4,
-                        maxlenght: 20
-                    },
-                    senha: {
-                        required: true,
-                        minlenght: 4,
-                        maxlenght: 50
-                    },
-                    senhaConfirm: {
-                        required: true,
-                        equalTo: "#senhaUsuario"
-                    }
-                },
-                messages: {
-                    nome: {
-                        required: "Campo obrigatório",
-                        regex: "Valor inválido. Por favor, insira as informações corretamente",
-                        minlenght: "Este campo deve conter entre 4 e 20 caracteres",
-                        maxlenght: "Este campo deve conter entre 4 e 20 caracteres"
-                    },
-                    login: {
-                        required: "Campo obrigatório",
-                        minlenght: "Este campo deve conter entre 4 e 20 caracteres",
-                        maxlenght: "Este campo deve conter entre 4 e 20 caracteres"
-                    },
-                    senha: {
-                        required: "Campo obrigatório",
-                        minlenght: "Este campo deve conter entre 4 e 20 caracteres",
-                        maxlenght: "Este campo deve conter entre 4 e 20 caracteres"
-                    },
-                    senhaConfirm: {
-                        required: "Campo obrigatório",
-                        equalTo: "Senhas não conferem"
-                    }
-                }
-            });
-
-            $("#btnCadastrar").click(function () {
-
-                //JSON (capturar os dados da tela..)
-                var model = {
-                    Nome: $("#nomeUsuario").val(),
-                    Login: $("#loginUsuario").val(),
-                    Senha: $("#senhaUsuario").val(),
-                    SenhaConfirm: $("#senhaConfirm").val(),
-                };
-                //AJAX..
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/Cadastro",
-                    data: model,
-                    success: function (msg) {
-                        $("#mensagem").html(msg);
-                    },
-                    error: function (e) {
-                        $("#mensagem").html("Erro: " + e.status);
-                    }
-                });
-            });
-
-
-            $("#btnLogin").click(function () {
-
-                //JSON (capturar os dados da tela..)
-                var model = {
-                    Login: $("#login-username").val(),
-                    Senha: $("#login-password").val(),
-                };
-                //AJAX..
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/Index",
-                    data: model,
-                    success: function (msg) {
-                        $("#mensagem").html(msg);
-                    },
-                    error: function (e) {
-                        $("#mensagem").html("Erro: " + e.status);
-                    }
-                });
-            });
-
-        });
-    </script>
-    <style>
-        .error {
-            color: red;
-            font-size: small
-        }
-    </style>
-</head>
-
-<body background="~/Imagens/LoginWallpapper.jpg">
-
-    <div class="container">
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title text-center"><strong>SISTEMA CONTROLE ESTATISTICO DE PROCESSO</strong></div>
-                </div>
-                <div style="padding-top:30px" class="panel-body">
-                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-
-                    <form id="loginform" class="form-horizontal" role="form">
-
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="login-username" type="text" class="form-control" required minlength="4" ,maxlength="20" placeholder="Login">
-
+            <div class="container">
+                <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title text-center"><strong>SISTEMA CONTROLE ESTATISTICO DE PROCESSO</strong></div>
                         </div>
+                        <div style="padding-top:30px" class="panel-body">
+                            <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="login-password" type="password" class="form-control" required minlength="4" ,maxlength="20" placeholder="Senha">
-                        </div>
+                            <form id="loginform" class="form-horizontal" role="form">
 
-                        <div style="margin-top:10px" class="form-group">
-                            <!-- Button -->
-                            <div class="col-sm-12 controls">
-                                <button id="btnLogin" class="btn btn-primary"> Login </button>
-                            </div>
-                        </div>
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Login" })
+                                    <span class="text-danger">@Html.ValidationMessageFor(model => model.Login)</span>
 
-                        <div class="form-group">
-                            <div class="col-md-12 control">
-                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
-                                    Não possui uma conta?
-                                    <a data-toggle="modal" href="#CadastroCliente">Clique aqui</a>
                                 </div>
-                            </div>
-                        </div>
-                    </form>
 
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Senha" })
+                                    <span class="text-danger">@Html.ValidationMessageFor(model => model.Senha)</span>
+                                </div>
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <div class="col-sm-12 controls">
+                                        <input type="submit" value="Login" class="btn btn-primary center-block" style="width:100px" />
+                                        <br />
+                                        <span class="text-danger">@ViewBag.Mensagem</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12 control">
+                                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                            Não possui uma conta?
+                                            <a href="/Home/Cadastro/">Clique aqui</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Janela modal -->
-    <div id="CadastroCliente" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="cadastroform" class="form-horizontal" role="form">
-                    <div class="modal-header bg-primary">
-                        <h3>Cadastro de Usuário</h3>
-                    </div>
-
-                    <div class="modal-body">
-                        <label>Nome do Usuário:</label>
-                        <input type="text" id="nomeUsuario" name="nome" class="form-control" /> <br />
-
-                        <label>Login:</label>
-                        <input type="text" id="loginUsuario" name="login" class="form-control" /> <br />
-
-                        <label>Senha:</label>
-                        <input type="password" id="senhaUsuario" name="senha" class="form-control" /><br />
-
-                        <label>Confirme sua Senha:</label>
-                        <input type="password" id="senhaConfirm" name="senhaConfirm" class="form-control" />
-
-
-                        <div class="modal-footer">
-                            <span id="mensagem"></span>
-                            <input type="button" id="btnCadastrar" value="Cadastrar" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+        }
+    </body>

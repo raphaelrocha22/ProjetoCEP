@@ -20,7 +20,7 @@ namespace Projeto.WEB.Controllers
         }
 
         [HttpPost]
-        public JsonResult Index(HomeViewModelLogin model)
+        public ActionResult Index(HomeViewModelLogin model)
         {
             if (ModelState.IsValid)
             {
@@ -37,32 +37,28 @@ namespace Projeto.WEB.Controllers
 
                         Session.Add("usuario", u);
 
-                        return Json("/AreaRestrita/CEP/Index/", JsonRequestBehavior.AllowGet);
+                        return RedirectToAction("Index", "CEP", new {area = "AreaRestrita" });
                     }
                     else
                     {
-                        ViewBag.Mensagem = "Acesso negado, usuário ou senha incorretos";
+                        throw new Exception("Acesso negado, usuário ou senha incorretos");
                     }
-
-
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = $"Erro: {e.Message}";
+                    ViewBag.Mensagem = e.Message;
                 }
             }
-
-
-            return Json("Dados inválidos");
+            return View();
         }
 
         public ActionResult Cadastro()
         {           
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
-        public JsonResult Cadastro(HomeViewModelCadastro model)
+        public ActionResult Cadastro(HomeViewModelCadastro model)
         {
             if (ModelState.IsValid)
             {
@@ -79,15 +75,14 @@ namespace Projeto.WEB.Controllers
                     d.Inserir(u);
 
                     ModelState.Clear();
-                    return Json($"Usuario {u.Login}, cadastrado com sucesso.");
-
+                    ViewBag.Mensagem = $"Usuario {u.Login}, cadastrado com sucesso.";
                 }
                 catch (Exception e)
                 {
-                    return Json(e.Message);
+                    ViewBag.Mensagem = e.Message;
                 }   
             }
-            return Json("Dados inválidos");
+            return PartialView("Cadastro");
         }
     }
 }

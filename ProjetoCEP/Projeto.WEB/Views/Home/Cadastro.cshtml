@@ -1,65 +1,126 @@
 ﻿@model Projeto.WEB.Models.Home.HomeViewModelCadastro
 
 @{
-    ViewBag.Title = "Cadastro";
-    Layout = "~/Views/Templates/Layout.cshtml";
+    ViewBag.Title = "Index";
 }
 
-<h4>Cadastro de Usuário</h4>
-<br />
-@Html.ActionLink("Voltar para a página inicial", "Index")
-<hr />
+<head>
 
-@using (Html.BeginForm()) 
+    <title>Controle Estatistico de Processo</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+</head>
+
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-      
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+    <body background="~/Imagens/LoginWallpapper.jpg">
+        <div class="container">
+            <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title text-center"><strong>CADASTRO DE USUÁRIO</strong></div>
+                    </div>
+                    <div style="padding-top:30px" class="panel-body">
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                        <form id="loginform" class="form-horizontal" role="form">
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Nome" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Nome)</span>
+                            </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Login" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Login)</span>
+                            </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Senha" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Senha)</span>
+                            </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.PasswordFor(m => m.SenhaConfirm, new { @class = "form-control", @placeholder = "Confirme sua senha" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.SenhaConfirm)</span>
+                            </div>
+
+                            <div style="margin-top:10px" class="form-group">
+                                <div class="col-sm-12 controls">
+                                    <input type="submit" value="Cadastrar" class="btn btn-primary center-block" style="width:100px" />
+                                    <br />
+                                    @ViewBag.Mensagem
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12 control">
+                                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                        <a href="Home/Index/">Voltar para a página principal</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.PasswordFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SenhaConfirm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.PasswordFor(model => model.SenhaConfirm, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SenhaConfirm, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                <input type="submit" value="Cadastrar Usuário" class="btn btn-default" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                @ViewBag.Mensagem
-            </div>
-        </div>
-
-    </div>
+    </body>
 }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@using (Html.BeginForm())
+{
+    <body background="~/Imagens/LoginWallpapper.jpg">
+        <div class="row">
+            <div class="col-md-4">
+
+                @Html.LabelFor(m => m.Nome)
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.Nome)</span>
+                <br />
+
+                @Html.LabelFor(model => model.Login)
+                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.Login)</span>
+                <br />
+
+                @Html.LabelFor(model => model.Senha)
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.Senha)</span>
+                <br />
+
+                @Html.LabelFor(m => m.SenhaConfirm)
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.SenhaConfirm)</span>
+                <br />
+
+                <input type="submit" value="Cadastrar" class="btn btn-primary pull-right" />
+                <br />
+                @ViewBag.Mensagem
+                <br />
+            </div>
+        </div>
+    </body>
+}*@
