@@ -9,6 +9,7 @@ using Projeto.Entidades;
 using Projeto.DAL.Persistencias;
 using System.Web.Security;
 using Projeto.Util;
+using Projeto.WEB.Areas.AreaRestrita.Models.Operador;
 
 namespace Projeto.WEB.Controllers
 {
@@ -96,6 +97,6 @@ namespace Projeto.WEB.Controllers
                 }   
             }
             return View();
-        }
+        }        
     }
 }

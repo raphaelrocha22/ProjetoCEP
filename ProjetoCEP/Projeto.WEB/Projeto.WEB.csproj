@@ -116,6 +116,9 @@
     <Content Include="Areas\AreaRestrita\Views\CEP\Index.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\CEP\CalcularLimites.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\CEP\HistoricoLimites.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Operador\Cadastrar.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Operador\Consultar.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Operador\Excluir.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -130,7 +133,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\AreaRestrita\AreaRestritaAreaRegistration.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\CEPController.cs" />
+    <Compile Include="Areas\AreaRestrita\Controllers\OperadorController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\CEP\ViewModelCalcularLimites.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\Operador\OperadorViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -155,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AreaRestrita\Models\" />
     <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
     <Folder Include="Logs\" />
   </ItemGroup>

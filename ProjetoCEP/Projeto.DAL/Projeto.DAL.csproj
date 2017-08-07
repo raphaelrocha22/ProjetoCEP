@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexoes\Conexao.cs" />
+    <Compile Include="Persistencias\OperadorDAL.cs" />
     <Compile Include="Persistencias\UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

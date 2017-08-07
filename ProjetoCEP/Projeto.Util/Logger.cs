@@ -29,9 +29,10 @@ namespace Projeto.Util
                 sw.WriteLine($"StackTrace: { e.StackTrace}");
                 sw.WriteLine("------------------\n\n");
             }
-            catch
+            catch(Exception ex)
             {
                 sw.WriteLine($"------...Houve um erro na gravação do log...------");
+                sw.WriteLine(ex.Message);
             }
 
             sw.Close();

@@ -1,8 +1,45 @@
-﻿
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.CEP.ViewModelCalcularLimites
 @{
     ViewBag.Title = "CalcularLimites";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CalcularLimites</h2>
+<h2>Calcular novo Limite de controle</h2>
 
+@using (Html.BeginForm())
+{
+
+    <div class="row" id="AmostraCadastro">
+        <div class="col-md-2">
+            <label>Lote</label><br />
+            @Html.TextBoxFor(m => m.Lote, new { @class = "form-control", @placeholder = "Digite aqui" })
+        </div>
+            
+        <div class="col-md-2">
+            <label>Data da Criacao</label><br />
+            @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control", @placeholder = "Digite aqui" })
+        </div>
+
+        <div class="col-md-2">
+            <label>Operador Criacao</label><br />
+            
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+        
+        <div class="col-md-2">
+
+        </div>
+
+    </div>
+}

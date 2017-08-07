@@ -24,3 +24,63 @@ StackTrace:    em System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnect
 ------------------
 
 
+
+
+Data: 06/08/2017 20:47:08
+ErroCode: -2147467261
+HelpLink: 
+Source: Projeto.DAL
+Message: Referência de objeto não definida para uma instância de um objeto.
+StackTrace:    em Projeto.DAL.Persistencias.OperadorDAL.ObterOperador(String Nome) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\OperadorDAL.cs:linha 63
+   em Projeto.WEB.Areas.AreaRestrita.Controllers.OperadorController.Cadastrar(OperadorViewModel model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\OperadorController.cs:linha 28
+------------------
+
+
+
+
+Data: 06/08/2017 20:51:30
+ErroCode: -2147467261
+HelpLink: 
+Source: Projeto.DAL
+Message: Referência de objeto não definida para uma instância de um objeto.
+StackTrace:    em Projeto.DAL.Persistencias.OperadorDAL.ObterOperador(String Nome) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\OperadorDAL.cs:linha 63
+   em Projeto.WEB.Areas.AreaRestrita.Controllers.OperadorController.Cadastrar(OperadorViewModel model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\OperadorController.cs:linha 28
+------------------
+
+
+
+
+Data: 06/08/2017 20:54:07
+ErroCode: -2147467261
+HelpLink: 
+Source: Projeto.DAL
+Message: Referência de objeto não definida para uma instância de um objeto.
+StackTrace:    em Projeto.DAL.Persistencias.OperadorDAL.ObterOperador(String Nome) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\OperadorDAL.cs:linha 63
+   em Projeto.WEB.Areas.AreaRestrita.Controllers.OperadorController.Cadastrar(OperadorViewModel model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\OperadorController.cs:linha 28
+------------------
+
+
+
+
+Data: 06/08/2017 22:45:22
+ErroCode: -2146232060
+HelpLink: 
+Source: .Net SqlClient Data Provider
+Message: É necessário declarar a variável escalar "@IdOperador".
+StackTrace:    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader()
+   em Projeto.DAL.Persistencias.OperadorDAL.ObterPorId(Int32 id) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\OperadorDAL.cs:linha 76
+   em Projeto.WEB.Areas.AreaRestrita.Controllers.OperadorController.Excluir(Int32 id) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\OperadorController.cs:linha 93
+------------------
+
+
