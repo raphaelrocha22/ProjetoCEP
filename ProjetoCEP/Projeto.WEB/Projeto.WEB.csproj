@@ -119,6 +119,7 @@
     <Content Include="Areas\AreaRestrita\Views\Operador\Cadastrar.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Operador\Consultar.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Operador\Excluir.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\Operador\Atualizar.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -135,7 +136,7 @@
     <Compile Include="Areas\AreaRestrita\Controllers\CEPController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\OperadorController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
-    <Compile Include="Areas\AreaRestrita\Models\CEP\ViewModelCalcularLimites.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\CEP\CalcularLimitesViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Operador\OperadorViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

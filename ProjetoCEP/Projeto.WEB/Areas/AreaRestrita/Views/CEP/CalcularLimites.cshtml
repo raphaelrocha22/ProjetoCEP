@@ -1,45 +1,77 @@
-﻿@model Projeto.WEB.Areas.AreaRestrita.Models.CEP.ViewModelCalcularLimites
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.CEP.CalcularLimitesViewModel
 @{
     ViewBag.Title = "CalcularLimites";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Calcular novo Limite de controle</h2>
+<div class="container">
 
-@using (Html.BeginForm())
-{
+    <h2>Calcular novo Limite de controle</h2>
+    <hr />
 
-    <div class="row" id="AmostraCadastro">
-        <div class="col-md-2">
-            <label>Lote</label><br />
-            @Html.TextBoxFor(m => m.Lote, new { @class = "form-control", @placeholder = "Digite aqui" })
-        </div>
+    @using (Html.BeginForm())
+    {
+        <h4>Inserir Amostra:</h4>
+        <br />
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="row">
+
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.Lote)
+                @Html.TextBoxFor(m => m.Lote, new { @class = "form-control", @placeholder = "Digite aqui" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.DataCriacao)
+                @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control", @type = "datetime-local"})
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.IdOperadorCriacao)
+                @Html.DropDownListFor(m => m.IdOperadorCriacao,
+                                Model.ListagemOperador,
+                                "- Selecione uma opção -",
+                                new { @class = "form-control" })
+            </div>
             
-        <div class="col-md-2">
-            <label>Data da Criacao</label><br />
-            @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control", @placeholder = "Digite aqui" })
-        </div>
-
-        <div class="col-md-2">
-            <label>Operador Criacao</label><br />
-            
-        </div>
-
-        <div class="col-md-2">
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.DataAnalise)
+                @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control", @type = "datetime-local" })
+            </div>
 
         </div>
 
-        <div class="col-md-2">
+        <div class="row" style="margin-top:20px">
+
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.IdOperadorAnalise)
+                @Html.DropDownListFor(m => m.IdOperadorAnalise,
+                                Model.ListagemOperador,
+                                "- Selecione uma opção -",
+                                new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.TotaLentes)
+                @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control", @placeholder = "Digite aqui", @id="TotalLentes" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.QtdNaoConforme)
+                @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+            </div>
+
+            <div class="col-md-2">
+                <label>% Reprovação</label><br />
+                <input type="text" readonly="readonly" style="width:50px"/>
+            </div>
+
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary" style="margin-top:24px" />
+            </div>
 
         </div>
-
-        <div class="col-md-2">
-
-        </div>
-        
-        <div class="col-md-2">
-
-        </div>
-
-    </div>
-}
+    }
+</div>

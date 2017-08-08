@@ -127,5 +127,54 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
             return View();
         }
+
+        public ActionResult Atualizar(int id)
+        {
+            try
+            {
+                var d = new OperadorDAL();
+                Operador o = d.ObterPorId(id);
+
+                var model = new OperadorViewModel();
+                model.IdOperador = o.IdOperador;
+                model.Nome = o.Nome;
+
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema";
+                Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Atualizar(OperadorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var o = new Operador();
+                    o.IdOperador = model.IdOperador;
+                    o.Nome = model.Nome;
+
+                    var d = new OperadorDAL();
+                    d.Atualizar(o);
+
+                    TempData["MensagemEdicao"] = $"Operador {model.Nome}, editado com sucesso.";
+
+                    return RedirectToAction("Consultar", "Operador", new { area = "AreaRestrita" });
+
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema";
+                    Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
+                }
+            }
+            return View();
+        }
     }
 }

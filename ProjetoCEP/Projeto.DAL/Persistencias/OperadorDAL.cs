@@ -100,5 +100,18 @@ namespace Projeto.DAL.Persistencias
 
             FecharConexao();
         }
+
+        public void Atualizar (Operador o)
+        {
+            AbrirConexao();
+
+            string query = "update Operador set Nome = @Nome where IdOperador = @IdOperador";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Nome",o.Nome);
+            cmd.Parameters.AddWithValue("@IdOperador", o.IdOperador);
+            cmd.ExecuteNonQuery();
+
+            FecharConexao();
+        }
     }
 }
