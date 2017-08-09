@@ -18,34 +18,34 @@
 
         <div class="row">
 
-            <div class="col-md-2">
+            <div class="col-md-2 text-center">
                 @Html.LabelFor(m => m.Lote)
-                @Html.TextBoxFor(m => m.Lote, new { @class = "form-control", @placeholder = "Digite aqui" })
+                @Html.TextBoxFor(m => m.Lote, new { @class = "form-control text-center", @placeholder = "Digite aqui" })
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.DataCriacao)
-                @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control", @type = "datetime-local"})
+                @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control text-center", @type = "datetime-local" })
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.IdOperadorCriacao)
                 @Html.DropDownListFor(m => m.IdOperadorCriacao,
                                 Model.ListagemOperador,
                                 "- Selecione uma opção -",
                                 new { @class = "form-control" })
             </div>
-            
-            <div class="col-md-3">
+
+            <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.DataAnalise)
-                @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control", @type = "datetime-local" })
+                @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control text-center", @type = "datetime-local" })
             </div>
 
         </div>
 
         <div class="row" style="margin-top:20px">
 
-            <div class="col-md-3">
+            <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.IdOperadorAnalise)
                 @Html.DropDownListFor(m => m.IdOperadorAnalise,
                                 Model.ListagemOperador,
@@ -53,25 +53,37 @@
                                 new { @class = "form-control" })
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 text-center">
                 @Html.LabelFor(m => m.TotaLentes)
-                @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control", @placeholder = "Digite aqui", @id="TotalLentes" })
+                @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 text-center">
                 @Html.LabelFor(m => m.QtdNaoConforme)
-                @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+                @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
             </div>
 
             <div class="col-md-2">
                 <label>% Reprovação</label><br />
-                <input type="text" readonly="readonly" style="width:50px"/>
+                <input type="text" class="form-control text-center" readonly="readonly" style="width:100px" />
             </div>
 
             <div class="col-md-2">
-                <input type="submit" class="btn btn-primary" style="margin-top:24px" />
+                <input type="submit" class="btn btn-primary" style="margin-top:24px"/>
             </div>
 
+        </div>
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-6 text-center">
+
+                @if (TempData["MensagemCadastro"] != null)
+                {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
+
+                @if (TempData["MensagemErro"] != null)
+                {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
+            
+            </div>
         </div>
     }
 </div>
