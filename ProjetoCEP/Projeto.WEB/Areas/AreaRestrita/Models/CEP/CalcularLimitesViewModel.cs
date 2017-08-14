@@ -35,11 +35,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
 
         [Required(ErrorMessage = "Informe o Total de Lentes do Lote")]
         [Display(Name = "Total Lentes")]
-        public int TotaLentes { get; set; }
+        public decimal TotaLentes { get; set; }
 
         [Required(ErrorMessage = "Informe a qtd de defeitos")]
         [Display(Name = "Qtd Não conforme")]
-        public int QtdNaoConforme { get; set; }
+        public decimal QtdNaoConforme { get; set; }
+
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
 
 
         public List<SelectListItem> ListagemOperador
@@ -61,7 +64,8 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
             }
         }
 
-
-
+        public string OperadorCriacaoNome { get; set; }
+        public string OperadorAnaliseNome { get; set; }
+        public decimal Percentual { get; set; }
     }
 }

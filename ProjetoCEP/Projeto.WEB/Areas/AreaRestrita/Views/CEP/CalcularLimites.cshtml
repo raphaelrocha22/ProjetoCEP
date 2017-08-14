@@ -63,27 +63,46 @@
                 @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
             </div>
 
-            <div class="col-md-2">
-                <label>% Reprovação</label><br />
-                <input type="text" class="form-control text-center" readonly="readonly" style="width:100px" />
+            <div class="col-md-1">
+                <label>% Reprov.</label><br />
+                <input type="text" class="form-control text-center" readonly="readonly" />
             </div>
 
-            <div class="col-md-2">
-                <input type="submit" class="btn btn-primary" style="margin-top:24px"/>
+            <div class="col-md-3 text-center">
+                @Html.TextAreaFor(m => m.Observacao, new { @class = "form-control text-center", @placeholder = "Observacao...", @style = "margin-top:10px" })
             </div>
-
+            
         </div>
 
+        <div class="row pull-right">
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary" style="margin-top:24px" />
+            </div>
+        </div>
+
+
         <div class="row" style="margin-top:20px">
-            <div class="col-md-6 text-center">
+            <div class="col-md-11 text-center">
 
                 @if (TempData["MensagemCadastro"] != null)
                 {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
 
                 @if (TempData["MensagemErro"] != null)
                 {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
-            
+
             </div>
         </div>
+        <hr />
     }
+
+    <div class="row">
+        <div class="col-md-12">
+
+            @{
+                Html.RenderAction("Consultar");
+            }
+
+        </div>
+    </div>
+
 </div>

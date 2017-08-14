@@ -84,3 +84,25 @@ StackTrace:    em System.Data.SqlClient.SqlConnection.OnError(SqlException excep
 ------------------
 
 
+
+
+Data: 12/08/2017 14:31:38
+ErroCode: -2147467261
+HelpLink: 
+Source: Projeto.WEB
+Message: Referência de objeto não definida para uma instância de um objeto.
+StackTrace:    em Projeto.WEB.Areas.AreaRestrita.Controllers.CEPController.CalcularLimites(CalcularLimitesViewModel model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\CEPController.cs:linha 40
+------------------
+
+
+
+
+Data: 12/08/2017 14:32:05
+ErroCode: -2147467261
+HelpLink: 
+Source: Projeto.WEB
+Message: Referência de objeto não definida para uma instância de um objeto.
+StackTrace:    em Projeto.WEB.Areas.AreaRestrita.Controllers.CEPController.CalcularLimites(CalcularLimitesViewModel model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Areas\AreaRestrita\Controllers\CEPController.cs:linha 40
+------------------
+
+

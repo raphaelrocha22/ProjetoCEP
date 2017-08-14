@@ -120,6 +120,7 @@
     <Content Include="Areas\AreaRestrita\Views\Operador\Consultar.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Operador\Excluir.cshtml" />
     <Content Include="Areas\AreaRestrita\Views\Operador\Atualizar.cshtml" />
+    <Content Include="Areas\AreaRestrita\Views\CEP\_ConsultarAmostras.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
