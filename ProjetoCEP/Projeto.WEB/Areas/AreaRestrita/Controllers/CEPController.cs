@@ -46,9 +46,10 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                         l.TotalLentes = Convert.ToInt32(model.TotaLentes);
                         l.QtdNaoConforme = Convert.ToInt32(model.QtdNaoConforme);
                         l.Percentual = model.QtdNaoConforme/model.TotaLentes;
+                        if (model.Observacao == null)
+                            model.Observacao = string.Empty;
                         l.Observacao = model.Observacao;
                         
-
                         var d = new CepDAL();
                         d.CadastrarAmostras(l);
 
@@ -59,10 +60,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     {
                         if (e.HResult == -2146232060)
                         {
+                            //TempData["MensagemErro"] = e.Message;
                             TempData["MensagemErro"] = "Um lote com essa numeração já foi inserido no sistema";
                         }
                         else
                         {
+                            //TempData["MensagemErro"] = e.Message;
                             TempData["MensagemErro"] = "Erro não esperado. Tente novamente, se o erro persistir entre em contato com o administrador do sistema";
                             Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
                         }
@@ -87,7 +90,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             foreach (var item in d.ObterAmostras())
             {
                 var l = new CalcularLimitesViewModel();
-                
+
                 l.idLote = item.IdLote;
                 l.Lote = item.NumeroLote;
                 l.DataCriacao = item.DataCriacao;
@@ -97,11 +100,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 l.TotaLentes = item.TotalLentes;
                 l.QtdNaoConforme = item.QtdNaoConforme;
                 l.Percentual = item.Percentual;
-                
+                l.Observacao = item.Observacao;
+
                 lista.Add(l);
             }
-            
-            return PartialView("_ConsultarAmostras",lista);
+
+            return PartialView("_ConsultarAmostras", lista);
         }
 
         public JsonResult ObterPorId(int id)
@@ -146,7 +150,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 return Json(e.Message);
             }
 
-            
+
         }
 
 

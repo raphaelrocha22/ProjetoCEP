@@ -65,11 +65,12 @@
 
             <div class="col-md-1">
                 <label>% Reprov.</label><br />
-                <input type="text" class="form-control text-center" readonly="readonly" />
+                <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
             </div>
 
             <div class="col-md-3 text-center">
-                @Html.TextAreaFor(m => m.Observacao, new { @class = "form-control text-center", @placeholder = "Observacao...", @style = "margin-top:10px" })
+                @Html.LabelFor(m => m.Observacao)
+                @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
             </div>
             
         </div>

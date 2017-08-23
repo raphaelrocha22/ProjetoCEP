@@ -105,3 +105,4 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.csprojResolv
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.pdb
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\bin\NLog.config
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\obj\Debug\Projeto.WEB.csproj.CoreCompileInputs.cache

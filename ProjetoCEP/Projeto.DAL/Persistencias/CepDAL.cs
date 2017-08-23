@@ -62,6 +62,7 @@ namespace Projeto.DAL.Persistencias
                 l.TotalLentes = (int)dr["TotalLentes"];
                 l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
                 l.Percentual = (decimal)dr["Percentual"];
+                l.Observacao = (string)dr["Observacao"].ToString();
                 
                 lista.Add(l);
             }

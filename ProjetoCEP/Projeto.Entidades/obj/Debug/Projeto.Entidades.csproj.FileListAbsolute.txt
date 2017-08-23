@@ -8,3 +8,4 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\bin\Debug\Projeto.Entidades.
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Debug\Projeto.Entidades.csprojResolveAssemblyReference.cache
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Debug\Projeto.Entidades.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Debug\Projeto.Entidades.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Debug\Projeto.Entidades.csproj.CoreCompileInputs.cache

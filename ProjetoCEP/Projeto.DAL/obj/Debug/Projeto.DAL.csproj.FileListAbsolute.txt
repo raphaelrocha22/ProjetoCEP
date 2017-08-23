@@ -16,3 +16,4 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
