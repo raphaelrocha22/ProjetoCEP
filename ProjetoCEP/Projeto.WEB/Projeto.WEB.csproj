@@ -151,6 +151,7 @@
     <Compile Include="Models\Home\HomeViewModelCadastro.cs" />
     <Compile Include="Models\Home\HomeViewModelLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\DateValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

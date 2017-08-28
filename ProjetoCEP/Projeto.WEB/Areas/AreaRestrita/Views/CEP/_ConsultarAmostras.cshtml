@@ -33,13 +33,10 @@
         $("#txtobservacao").html(obs);
     }
 
-    function exibirTeste(idLote, Lote, DataCriacao, OperadorCriacaoNome, DataAnalise, OperadorAnaliseNome,
-        TotaLentes, QtdNaoConforme, Percentual) {
+    function exibirTeste(idLote, Lote,DataAnalise, OperadorAnaliseNome,TotaLentes, QtdNaoConforme, Percentual) {
 
         $("#exclusao_id").html(idLote);
         $("#exclusao_lote").html(Lote);
-        $("#exclusao_DataCriacao").html(DataCriacao);
-        $("#exclusao_OperadorCriacao").html(OperadorCriacaoNome);
         $("#exclusao_DataAnalise").html(DataAnalise);
         $("#exclusao_OperadorAnalise").html(OperadorAnaliseNome);
         $("#exclusao_TotalLentes").html(TotaLentes);
@@ -65,8 +62,6 @@
                     Id
                 </style></th>
                 <th>Lote</th>
-                <th>Data Criação</th>
-                <th>Operador Criação</th>
                 <th>Data Analise</th>
                 <th>Operador Analise</th>
                 <th>Total Lentes</th>
@@ -87,8 +82,6 @@
                         <style hidden> @item.idLote </style>
                     </td>
                     <td>@item.Lote</td>
-                    <td>@item.DataCriacao</td>
-                    <td>@item.OperadorCriacaoNome</td>
                     <td>@item.DataAnalise</td>
                     <td>@item.OperadorAnaliseNome</td>
                     <td>@item.TotaLentes</td>
@@ -105,8 +98,7 @@
                     </td>
                     <td>
                         <button data-target='#ExclusaoModal' data-toggle='modal'
-                                onclick="exibirTeste(@item.idLote,@item.Lote,'@item.DataCriacao','@item.OperadorCriacaoNome',
-                                '@item.DataAnalise','@item.OperadorAnaliseNome',@item.TotaLentes,@item.QtdNaoConforme,@item.Percentual)"
+                                onclick="exibirTeste(@item.idLote,@item.Lote,'@item.DataAnalise','@item.OperadorAnaliseNome',@item.TotaLentes,@item.QtdNaoConforme,@item.Percentual)"
                                 class='btn btn-danger btn-xs'>
                             Excluir
                         </button>
@@ -116,7 +108,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6"> Quantidade de Amostras:<span id="quantidade"></span> </td>
+                <td colspan="6"> Quantidade de Amostras: @Model.Count <span id="quantidade"></span> </td>
             </tr>
         </tfoot>
     </table>
@@ -150,8 +142,6 @@
 
                 <strong> Id: </strong><span id="exclusao_id"></span> <br />
                 <strong> Lote: </strong><span id="exclusao_lote"></span> <br />
-                <strong> Data Criação: </strong><span id="exclusao_DataCriacao"></span> <br />
-                <strong> Operador Criação: </strong><span id="exclusao_OperadorCriacao"></span> <br />
                 <strong> Data Analise: </strong><span id="exclusao_DataAnalise"></span> <br />
                 <strong> Operador Analise: </strong><span id="exclusao_OperadorAnalise"></span> <br />
                 <strong> Total Lentes: </strong><span id="exclusao_TotalLentes"></span> <br />

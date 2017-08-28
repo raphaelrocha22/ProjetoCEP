@@ -30,17 +30,14 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.DataAnalise >= model.DataCriacao && model.TotaLentes >= model.QtdNaoConforme)
+                if (model.TotaLentes >= model.QtdNaoConforme)
                 {
                     try
                     {
                         var l = new Lote();
-                        l.OperadorCriacao = new Operador();
                         l.OperadorAnalise = new Operador();
 
                         l.NumeroLote = model.Lote;
-                        l.DataCriacao = model.DataCriacao;
-                        l.OperadorCriacao.IdOperador = model.IdOperadorCriacao;
                         l.DataAnalise = model.DataAnalise;
                         l.OperadorAnalise.IdOperador = model.IdOperadorAnalise;
                         l.TotalLentes = Convert.ToInt32(model.TotaLentes);
@@ -73,9 +70,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 }
                 else
                 {
-                    TempData["MensagemErro"] = "Por favor, verifique se a data de análise não está inferior a data de criação " +
-                                                "ou se a quantidade não conforme não está maior que o total de lentes";
-
+                    TempData["MensagemErro"] = "Por favor, verifique se a quantidade não conforme não está maior que o total de lentes";
                 }
             }
 
@@ -93,8 +88,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                 l.idLote = item.IdLote;
                 l.Lote = item.NumeroLote;
-                l.DataCriacao = item.DataCriacao;
-                l.OperadorCriacaoNome = item.OperadorCriacao.Nome;
                 l.DataAnalise = item.DataAnalise;
                 l.OperadorAnaliseNome = item.OperadorAnalise.Nome;
                 l.TotaLentes = item.TotalLentes;
@@ -104,36 +97,33 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                 lista.Add(l);
             }
-
             return PartialView("_ConsultarAmostras", lista);
         }
 
-        public JsonResult ObterPorId(int id)
-        {
-            try
-            {
-                var d = new CepDAL();
-                Lote l = d.ObterPorId(id);
+        //public JsonResult ObterPorId(int id)
+        //{
+        //    try
+        //    {
+        //        var d = new CepDAL();
+        //        Lote l = d.ObterPorId(id);
 
-                var model = new CalcularLimitesViewModel();
-                model.idLote = l.IdLote;
-                model.Lote = l.NumeroLote;
-                model.DataCriacao = l.DataCriacao;
-                model.OperadorCriacaoNome = l.OperadorCriacao.Nome;
-                model.DataAnalise = l.DataAnalise;
-                model.OperadorAnaliseNome = l.OperadorAnalise.Nome;
-                model.TotaLentes = l.TotalLentes;
-                model.QtdNaoConforme = l.QtdNaoConforme;
-                model.Percentual = l.Percentual;
-                model.Observacao = l.Observacao;
+        //        var model = new CalcularLimitesViewModel();
+        //        model.idLote = l.IdLote;
+        //        model.Lote = l.NumeroLote;
+        //        model.DataAnalise = l.DataAnalise;
+        //        model.OperadorAnaliseNome = l.OperadorAnalise.Nome;
+        //        model.TotaLentes = l.TotalLentes;
+        //        model.QtdNaoConforme = l.QtdNaoConforme;
+        //        model.Percentual = l.Percentual;
+        //        model.Observacao = l.Observacao;
 
-                return Json(model);
-            }
-            catch (Exception e)
-            {
-                return Json(e.Message);
-            }
-        }
+        //        return Json(model);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Json(e.Message);
+        //    }
+        //}
 
         public JsonResult Excluir(int id)
         {
@@ -149,18 +139,26 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
                 return Json(e.Message);
             }
-
-
         }
 
 
+        public ActionResult Calcular()
+        {
+            try
+            {
+                var d = new CepDAL();
+                List<Lote> lista = d.ObterAmostras();
 
+                d.CalcularLimites(lista);
 
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = e.Message;
+            }          
 
-
-
-
-
+            return View(new CalcularLimitesViewModel());
+        }
 
 
         public ActionResult HistoricoLimites()

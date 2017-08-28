@@ -11,8 +11,6 @@ namespace Projeto.Entidades
     {
         public int IdLote { get; set; }
         public int NumeroLote { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public Operador OperadorCriacao { get; set; }
         public DateTime DataAnalise { get; set; }
         public Operador OperadorAnalise { get; set; }
         public int TotalLentes { get; set; }

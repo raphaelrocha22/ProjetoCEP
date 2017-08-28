@@ -15,12 +15,10 @@ namespace Projeto.DAL.Persistencias
         {
             AbrirConexao();
 
-            string query = "Insert into Amostras (Lote,DataCriacao,IdOperadorCriacao,DataAnalise,IdOperadorAnalise,TotalLentes,QtdNaoConforme,Percentual,Observacao) " +
-                "values (@Lote,@DataCriacao,@IdOperadorCriacao,@DataAnalise,@IdOperadorAnalise,@TotalLentes,@QtdNaoConforme,@Percentual,@Observacao)";
+            string query = "Insert into Amostras (Lote,DataAnalise,IdOperadorAnalise,TotalLentes,QtdNaoConforme,Percentual,Observacao) " +
+                "values (@Lote,@DataAnalise,@IdOperadorAnalise,@TotalLentes,@QtdNaoConforme,@Percentual,@Observacao)";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@Lote", l.NumeroLote);
-            cmd.Parameters.AddWithValue("@DataCriacao", l.DataCriacao);
-            cmd.Parameters.AddWithValue("@IdOperadorCriacao", l.OperadorCriacao.IdOperador);
             cmd.Parameters.AddWithValue("@DataAnalise", l.DataAnalise);
             cmd.Parameters.AddWithValue("@IdOperadorAnalise", l.OperadorAnalise.IdOperador);
             cmd.Parameters.AddWithValue("@TotalLentes", l.TotalLentes);
@@ -36,8 +34,7 @@ namespace Projeto.DAL.Persistencias
         {
             AbrirConexao();
 
-            string query = "select am.*,cr.Nome as 'Operador Criacao',an.Nome as 'Operador Analise' from Amostras am " +
-                            "inner join Operador cr on am.IdOperadorCriacao = cr.IdOperador " +
+            string query = "select am.*,an.Nome as 'Operador Analise' from Amostras am " +
                             "inner join Operador an on am.IdOperadorAnalise = an.IdOperador";
 
             cmd = new SqlCommand(query, con);
@@ -48,14 +45,10 @@ namespace Projeto.DAL.Persistencias
             while (dr.Read())
             {
                 var l = new Lote();
-                l.OperadorCriacao = new Operador();
                 l.OperadorAnalise = new Operador();
 
                 l.IdLote = (int)dr["IdLote"];
                 l.NumeroLote = (int)dr["Lote"];
-                l.DataCriacao = (DateTime)dr["DataCriacao"];
-                l.OperadorCriacao.IdOperador = (int)dr["IdOperadorCriacao"];
-                l.OperadorCriacao.Nome = (string)dr["Operador Criacao"];
                 l.DataAnalise = (DateTime)dr["DataAnalise"];
                 l.OperadorAnalise.IdOperador = (int)dr["IdOperadorAnalise"];
                 l.OperadorAnalise.Nome = (string)dr["Operador Analise"];
@@ -74,8 +67,7 @@ namespace Projeto.DAL.Persistencias
         {
             AbrirConexao();
 
-            string query = "select am.*,cr.Nome as 'Operador Criacao',an.Nome as 'Operador Analise' from Amostras am " +
-                            "inner join Operador cr on am.IdOperadorCriacao = cr.IdOperador " +
+            string query = "select am.*,an.Nome as 'Operador Analise' from Amostras am " +
                             "inner join Operador an on am.IdOperadorAnalise = an.IdOperador " +
                             "where am.IdLote = @id";
 
@@ -88,14 +80,10 @@ namespace Projeto.DAL.Persistencias
             if (dr.Read())
             {
                 l = new Lote();
-                l.OperadorCriacao = new Operador();
                 l.OperadorAnalise = new Operador();
 
                 l.IdLote = (int)dr["IdLote"];
                 l.NumeroLote = (int)dr["Lote"];
-                l.DataCriacao = (DateTime)dr["DataCriacao"];
-                l.OperadorCriacao.IdOperador = (int)dr["IdOperadorCriacao"];
-                l.OperadorCriacao.Nome = (string)dr["Operador Criacao"];
                 l.DataAnalise = (DateTime)dr["DataAnalise"];
                 l.OperadorAnalise.IdOperador = (int)dr["IdOperadorAnalise"];
                 l.OperadorAnalise.Nome = (string)dr["Operador Analise"];
@@ -120,5 +108,11 @@ namespace Projeto.DAL.Persistencias
 
             FecharConexao();
         }
+
+        public void CalcularLimites(List<Lote> lotes)
+        {
+            string teste = "continuar";
+        }
+
     }
 }

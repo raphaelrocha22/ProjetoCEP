@@ -6,6 +6,7 @@ using Projeto.Entidades;
 using System.Web.Mvc;
 using Projeto.DAL.Persistencias;
 using System.ComponentModel.DataAnnotations;
+using Projeto.WEB.Validators;
 
 namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
 {
@@ -17,14 +18,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
         [Display(Name = "Lote")]
         public int Lote { get; set; }
 
-        [Required(ErrorMessage = "Informe a Data de criação")]
-        [Display(Name = "Data Criacao")]
-        public DateTime DataCriacao { get; set; }
-
-        [Required(ErrorMessage = "Informe o Operador de Criação")]
-        [Display(Name = "Operador Criacao")]
-        public int IdOperadorCriacao { get; set; }
-
+        [DateValidator(ErrorMessage = "A data de Análise não pode ser maior que a data atual")]
         [Required(ErrorMessage = "Informe a data da análise")]
         [Display(Name = "Data Análise")]
         public DateTime DataAnalise { get; set; }
@@ -64,7 +58,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
             }
         }
 
-        public string OperadorCriacaoNome { get; set; }
         public string OperadorAnaliseNome { get; set; }
         public decimal Percentual { get; set; }
     }

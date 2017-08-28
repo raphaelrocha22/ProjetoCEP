@@ -4,6 +4,27 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        alert();
+        $("#btnCalcularLimites").click(function () {
+            alert();
+            $.ajax({
+                type: "POST",
+                url: "/CEP/Calcular",
+                success: function () {
+                    alert();
+                },
+                error: function (e) {
+                    $("#mensagem").html("Erro: " + e.status);
+                }
+            });
+        });
+    });
+
+</script>
+
 <div class="container">
 
     <h2>Calcular novo Limite de controle</h2>
@@ -24,26 +45,9 @@
             </div>
 
             <div class="col-md-3 text-center">
-                @Html.LabelFor(m => m.DataCriacao)
-                @Html.TextBoxFor(m => m.DataCriacao, new { @class = "form-control text-center", @type = "datetime-local" })
-            </div>
-
-            <div class="col-md-3 text-center">
-                @Html.LabelFor(m => m.IdOperadorCriacao)
-                @Html.DropDownListFor(m => m.IdOperadorCriacao,
-                                Model.ListagemOperador,
-                                "- Selecione uma opção -",
-                                new { @class = "form-control" })
-            </div>
-
-            <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.DataAnalise)
                 @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control text-center", @type = "datetime-local" })
             </div>
-
-        </div>
-
-        <div class="row" style="margin-top:20px">
 
             <div class="col-md-3 text-center">
                 @Html.LabelFor(m => m.IdOperadorAnalise)
@@ -53,47 +57,49 @@
                                 new { @class = "form-control" })
             </div>
 
-            <div class="col-md-2 text-center">
-                @Html.LabelFor(m => m.TotaLentes)
-                @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
-            </div>
-
-            <div class="col-md-2 text-center">
-                @Html.LabelFor(m => m.QtdNaoConforme)
-                @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
-            </div>
-
-            <div class="col-md-1">
-                <label>% Reprov.</label><br />
-                <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
-            </div>
-
-            <div class="col-md-3 text-center">
-                @Html.LabelFor(m => m.Observacao)
-                @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
-            </div>
-            
         </div>
 
-        <div class="row pull-right">
-            <div class="col-md-2">
-                <input type="submit" class="btn btn-primary" style="margin-top:24px" />
+            <div class="row" style="margin-top:20px">
+
+                <div class="col-md-2 text-center">
+                    @Html.LabelFor(m => m.TotaLentes)
+                    @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
+                </div>
+
+                <div class="col-md-2 text-center">
+                    @Html.LabelFor(m => m.QtdNaoConforme)
+                    @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+                </div>
+
+                <div class="col-md-1">
+                    <label>% Reprov.</label><br />
+                    <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
+                </div>
+
+                <div class="col-md-4 text-center">
+                    @Html.LabelFor(m => m.Observacao)
+                    @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+                </div>
+
+                <div class="col-md-2">
+                    <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
+                </div>
+
             </div>
-        </div>
 
 
-        <div class="row" style="margin-top:20px">
-            <div class="col-md-11 text-center">
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-11 text-center">
 
-                @if (TempData["MensagemCadastro"] != null)
+                    @if (TempData["MensagemCadastro"] != null)
                 {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
 
-                @if (TempData["MensagemErro"] != null)
+                    @if (TempData["MensagemErro"] != null)
                 {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
 
+                </div>
             </div>
-        </div>
-        <hr />
+            <hr />
     }
 
     <div class="row">
@@ -106,4 +112,30 @@
         </div>
     </div>
 
+    <div class="col-md-2 pull-right">
+        <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
+        <br /><br /><br />
+    </div>
+
+</div>
+
+
+<!-- Modal Exclusao -->
+<div class="modal fade" id="CalcularLimite">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h3><strong>ATENÇÃO</strong></h3>
+            </div>
+            <div class="modal-body">
+
+                <h4>Deseja realizar o cálculo dos limites de controle a partir dessas amostras inseridas no sistema?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button  class="btn btn-danger" data-dismiss="modal">NÃO</button>
+                <button id="btnCalcularLimites" class="btn btn-success" data-dismiss="modal">SIM</button>
+            </div>
+        </div>
+    </div>
 </div>
