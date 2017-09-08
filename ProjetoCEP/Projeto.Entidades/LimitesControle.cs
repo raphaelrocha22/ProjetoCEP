@@ -9,12 +9,10 @@ namespace Projeto.Entidades
     public class LimitesControle
     {
         public int IdLimites { get; set; }
-        public decimal LSC { get; set; }
-        public decimal LC { get; set; }
-        public decimal LIC { get; set; }
+        public double LSC { get; set; }
+        public double LC { get; set; }
+        public double LIC { get; set; }
         public DateTime DataCalculo { get; set; }
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
         public bool Status { get; set; }
         public TipoCarta TipoCarta { get; set; }
 

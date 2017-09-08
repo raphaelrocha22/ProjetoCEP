@@ -7,19 +7,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        alert();
         $("#btnCalcularLimites").click(function () {
-            alert();
-            $.ajax({
-                type: "POST",
-                url: "/CEP/Calcular",
-                success: function () {
-                    alert();
-                },
-                error: function (e) {
-                    $("#mensagem").html("Erro: " + e.status);
-                }
-            });
+            alert("Redirecionamento");
+            $(location).attr('href', '/AreaRestrita/CEP/ResultadoCalculoLimites');
         });
     });
 
@@ -81,7 +71,7 @@
                     @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
                 </div>
 
@@ -110,17 +100,19 @@
             }
 
         </div>
-    </div>
 
-    <div class="col-md-2 pull-right">
-        <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
-        <br /><br /><br />
+        <div class="col-md-2 pull-right">
+            <br />
+            <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
+            <br /><br /><br />
+        </div>
+
     </div>
 
 </div>
 
 
-<!-- Modal Exclusao -->
+<!-- Modal Confirmação Calculo Limite -->
 <div class="modal fade" id="CalcularLimite">
     <div class="modal-dialog">
         <div class="modal-content">

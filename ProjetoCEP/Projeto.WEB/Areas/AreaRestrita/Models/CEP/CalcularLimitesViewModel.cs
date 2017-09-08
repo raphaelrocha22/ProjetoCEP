@@ -27,17 +27,25 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
         [Display(Name = "Operador Análise")]
         public int IdOperadorAnalise { get; set; }
 
+        public string OperadorAnaliseNome { get; set; }
+
         [Required(ErrorMessage = "Informe o Total de Lentes do Lote")]
         [Display(Name = "Total Lentes")]
-        public decimal TotaLentes { get; set; }
+        public int TotaLentes { get; set; }
 
         [Required(ErrorMessage = "Informe a qtd de defeitos")]
         [Display(Name = "Qtd Não conforme")]
-        public decimal QtdNaoConforme { get; set; }
+        public int QtdNaoConforme { get; set; }
+
+        public double Percentual { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
 
+        public string Status { get; set; }
+        public double LSC { get; set; }
+        public double LC { get; set; }
+        public double LIC { get; set; }
 
         public List<SelectListItem> ListagemOperador
         {
@@ -58,7 +66,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
             }
         }
 
-        public string OperadorAnaliseNome { get; set; }
-        public decimal Percentual { get; set; }
+        public string DataAnaliseGrafico { get; set; }
     }
 }

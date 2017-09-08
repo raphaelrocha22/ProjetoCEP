@@ -54,7 +54,7 @@ namespace Projeto.DAL.Persistencias
                 l.OperadorAnalise.Nome = (string)dr["Operador Analise"];
                 l.TotalLentes = (int)dr["TotalLentes"];
                 l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
-                l.Percentual = (decimal)dr["Percentual"];
+                l.Percentual = (double)dr["Percentual"];
                 l.Observacao = (string)dr["Observacao"].ToString();
                 
                 lista.Add(l);
@@ -89,7 +89,7 @@ namespace Projeto.DAL.Persistencias
                 l.OperadorAnalise.Nome = (string)dr["Operador Analise"];
                 l.TotalLentes = (int)dr["TotalLentes"];
                 l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
-                l.Percentual = (decimal)dr["Percentual"];
+                l.Percentual = (double)dr["Percentual"];
                 l.Observacao = dr["Observacao"].ToString();
             }
             
@@ -109,9 +109,29 @@ namespace Projeto.DAL.Persistencias
             FecharConexao();
         }
 
-        public void CalcularLimites(List<Lote> lotes)
+        public LimitesControle CalcularLimites(List<Lote> lotes)
         {
-            string teste = "continuar";
+            var limites = new LimitesControle();
+            limites.TipoCarta = new TipoCarta();
+            
+            double Di = 0;
+            int m = lotes.Count, n = 0;
+            
+            foreach (var item in lotes)
+            {
+                Di += item.QtdNaoConforme;
+                n = item.TotalLentes;
+            }
+            double p = Di/(m*n);
+
+            limites.LSC = Math.Round(p + 3 * (Math.Sqrt(((p * (1 - p)) / n))),3);
+            limites.LIC = Math.Round(p - 3 * (Math.Sqrt(((p * (1 - p)) / n))),3);
+            limites.LC = Math.Round(p,3);
+            limites.DataCalculo = DateTime.Now;
+            limites.TipoCarta.Modelo = "Atributo";
+            limites.TipoCarta.Carta = "Gráfico de Controle para a Fração Não Conforme";
+            
+            return limites;
         }
 
     }

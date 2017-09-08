@@ -33,7 +33,7 @@
         $("#txtobservacao").html(obs);
     }
 
-    function exibirTeste(idLote, Lote,DataAnalise, OperadorAnaliseNome,TotaLentes, QtdNaoConforme, Percentual) {
+    function exibirExclusao(idLote, Lote,DataAnalise, OperadorAnaliseNome,TotaLentes, QtdNaoConforme, Percentual) {
 
         $("#exclusao_id").html(idLote);
         $("#exclusao_lote").html(Lote);
@@ -98,7 +98,7 @@
                     </td>
                     <td>
                         <button data-target='#ExclusaoModal' data-toggle='modal'
-                                onclick="exibirTeste(@item.idLote,@item.Lote,'@item.DataAnalise','@item.OperadorAnaliseNome',@item.TotaLentes,@item.QtdNaoConforme,@item.Percentual)"
+                                onclick="exibirExclusao(@item.idLote,@item.Lote,'@item.DataAnalise','@item.OperadorAnaliseNome',@item.TotaLentes,@item.QtdNaoConforme,@item.Percentual)"
                                 class='btn btn-danger btn-xs'>
                             Excluir
                         </button>

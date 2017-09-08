@@ -1,0 +1,162 @@
+﻿@model List<Projeto.WEB.Areas.AreaRestrita.Models.CEP.CalcularLimitesViewModel>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#btnexclusao").click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/CEP/Excluir",
+                data: "id=" + $("#exclusao_id").html(),
+                success: function (msg) {
+                    alert(msg);
+                    $(location).attr('href', '/AreaRestrita/CEP/CalcularLimites');
+                },
+                error: function (e) {
+                    $("#mensagem").html("Erro: " + e.status);
+                }
+            });
+        });
+
+        $("#TotalLentes").focusout(function () {
+            CalculaPercent();
+        });
+
+        $("#QtdNaoConforme").focusout(function () {
+            CalculaPercent();
+        });
+
+    });
+
+    function exibirObservacao(obs) {
+        $("#txtobservacao").html(obs);
+    }
+
+    function exibirExclusao(idLote, Lote,DataAnalise, OperadorAnaliseNome,TotaLentes, QtdNaoConforme, Percentual) {
+
+        $("#exclusao_id").html(idLote);
+        $("#exclusao_lote").html(Lote);
+        $("#exclusao_DataAnalise").html(DataAnalise);
+        $("#exclusao_OperadorAnalise").html(OperadorAnaliseNome);
+        $("#exclusao_TotalLentes").html(TotaLentes);
+        $("#exclusao_QtdReprov").html(QtdNaoConforme);
+        $("#exclusao_PercentReprov").html(Percentual);
+    }
+
+    function CalculaPercent () {
+        var p = (($("#QtdNaoConforme").val() / $("#TotalLentes").val())*100).toFixed(1);
+        $('#Percent').val(p + "%");
+    };
+
+</script>
+
+<div class="container">
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>
+                <style hidden>
+                    Id
+                </style></th>
+                <th>Lote</th>
+                <th>Data Analise</th>
+                <th>Operador Analise</th>
+                <th>Total Lentes</th>
+                <th>Qtd Reprov.</th>
+                <th>% Reprov.</th>
+                <th>
+                <style hidden>
+                    Observacoes
+                </style></th>
+                <th>Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <style hidden> @item.idLote </style>
+                    </td>
+                    <td>@item.Lote</td>
+                    <td>@item.DataAnalise</td>
+                    <td>@item.OperadorAnaliseNome</td>
+                    <td>@item.TotaLentes</td>
+                    <td>@item.QtdNaoConforme</td>
+                    <td>@item.Percentual</td>
+                    <td>
+                       <style hidden">@item.Observacao</style>
+                    </td>
+                    <td>
+                        <button data-target='#ObservacoesModal' data-toggle='modal' onclick="exibirObservacao('@item.Observacao')"
+                                class='btn btn-primary btn-xs'>
+                            Observação
+                        </button>
+                    </td>
+                    <td>
+                        <button data-target='#ExclusaoModal' data-toggle='modal'
+                                onclick="exibirExclusao(@item.idLote,@item.Lote,'@item.DataAnalise','@item.OperadorAnaliseNome',@item.TotaLentes,@item.QtdNaoConforme,@item.Percentual)"
+                                class='btn btn-danger btn-xs'>
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"> Quantidade de Amostras: @Model.Count <span id="quantidade"></span> </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+<!-- Modal Observacao -->
+<div class="modal fade" id="ObservacoesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h3>Observação</h3>
+            </div>
+            <div class="modal-body">
+
+                <span id="txtobservacao"></span>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Exclusao -->
+<div class="modal fade" id="ExclusaoModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h3>Deseja Excluir essa Amostra?</h3>
+            </div>
+            <div class="modal-body">
+
+                <strong> Id: </strong><span id="exclusao_id"></span> <br />
+                <strong> Lote: </strong><span id="exclusao_lote"></span> <br />
+                <strong> Data Analise: </strong><span id="exclusao_DataAnalise"></span> <br />
+                <strong> Operador Analise: </strong><span id="exclusao_OperadorAnalise"></span> <br />
+                <strong> Total Lentes: </strong><span id="exclusao_TotalLentes"></span> <br />
+                <strong> Qtd Reprov.: </strong><span id="exclusao_QtdReprov"></span> <br />
+                <strong> % Reprov.: </strong><span id="exclusao_PercentReprov"></span> <br />
+
+</div>
+            <div class="modal-footer">
+                <button id="btnexclusao" class="btn btn-danger"
+                        data-dismiss="modal">
+                    Confirmar Exclusão
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

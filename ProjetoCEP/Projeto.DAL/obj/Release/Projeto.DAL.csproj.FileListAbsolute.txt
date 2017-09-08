@@ -1,0 +1,10 @@
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.DAL.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.DAL.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.Entidades.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.Util.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.Entidades.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Release\Projeto.Util.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Release\Projeto.DAL.csprojResolveAssemblyReference.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Release\Projeto.DAL.csproj.CoreCompileInputs.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Release\Projeto.DAL.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Release\Projeto.DAL.pdb

@@ -1,0 +1,6 @@
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\bin\Release\Projeto.Entidades.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\bin\Release\Projeto.Entidades.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Release\Projeto.Entidades.csprojResolveAssemblyReference.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Release\Projeto.Entidades.csproj.CoreCompileInputs.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Release\Projeto.Entidades.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Entidades\obj\Release\Projeto.Entidades.pdb

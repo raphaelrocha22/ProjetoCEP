@@ -1,0 +1,133 @@
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.CEP.CalcularLimitesViewModel
+@{
+    ViewBag.Title = "CalcularLimites";
+    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnCalcularLimites").click(function () {
+            alert("Redirecionamento");
+            $(location).attr('href', '/AreaRestrita/CEP/ResultadoCalculoLimites');
+        });
+    });
+
+</script>
+
+<div class="container">
+
+    <h2>Calcular novo Limite de controle</h2>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        <h4>Inserir Amostra:</h4>
+        <br />
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="row">
+
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(m => m.Lote)
+                @Html.TextBoxFor(m => m.Lote, new { @class = "form-control text-center", @placeholder = "Digite aqui" })
+            </div>
+
+            <div class="col-md-3 text-center">
+                @Html.LabelFor(m => m.DataAnalise)
+                @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control text-center", @type = "datetime-local" })
+            </div>
+
+            <div class="col-md-3 text-center">
+                @Html.LabelFor(m => m.IdOperadorAnalise)
+                @Html.DropDownListFor(m => m.IdOperadorAnalise,
+                                Model.ListagemOperador,
+                                "- Selecione uma opção -",
+                                new { @class = "form-control" })
+            </div>
+
+        </div>
+
+            <div class="row" style="margin-top:20px">
+
+                <div class="col-md-2 text-center">
+                    @Html.LabelFor(m => m.TotaLentes)
+                    @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
+                </div>
+
+                <div class="col-md-2 text-center">
+                    @Html.LabelFor(m => m.QtdNaoConforme)
+                    @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+                </div>
+
+                <div class="col-md-1">
+                    <label>% Reprov.</label><br />
+                    <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
+                </div>
+
+                <div class="col-md-4 text-center">
+                    @Html.LabelFor(m => m.Observacao)
+                    @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+                </div>
+
+                <div class="col-md-1">
+                    <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
+                </div>
+
+            </div>
+
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-11 text-center">
+
+                    @if (TempData["MensagemCadastro"] != null)
+                {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
+
+                    @if (TempData["MensagemErro"] != null)
+                {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
+
+                </div>
+            </div>
+            <hr />
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+
+            @{
+                Html.RenderAction("Consultar");
+            }
+
+        </div>
+
+        <div class="col-md-2 pull-right">
+            <br />
+            <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
+            <br /><br /><br />
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal Confirmação Calculo Limite -->
+<div class="modal fade" id="CalcularLimite">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h3><strong>ATENÇÃO</strong></h3>
+            </div>
+            <div class="modal-body">
+
+                <h4>Deseja realizar o cálculo dos limites de controle a partir dessas amostras inseridas no sistema?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button  class="btn btn-danger" data-dismiss="modal">NÃO</button>
+                <button id="btnCalcularLimites" class="btn btn-success" data-dismiss="modal">SIM</button>
+            </div>
+        </div>
+    </div>
+</div>

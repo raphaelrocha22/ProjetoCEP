@@ -1,0 +1,137 @@
+﻿@model List<Projeto.WEB.Areas.AreaRestrita.Models.CEP.CalcularLimitesViewModel>
+@{
+    ViewBag.Title = "ResultadoCalculoLimites";
+    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/CEP/GraficoCalculoLimitesData',
+            success:
+            function (response) {
+                drawVisualization(response);
+            }
+        });
+    });
+
+    function drawVisualization(dataValues) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'DataAnaliseGrafico');
+        data.addColumn('number', 'LSC');
+        data.addColumn('number', 'LC');
+        data.addColumn('number', 'LIC');
+        data.addColumn('number', 'Percentual');
+        for (var i = 0; i < dataValues.length; i++) {
+            data.addRow([dataValues[i].DataAnaliseGrafico, dataValues[i].LSC, dataValues[i].LC, dataValues[i].LIC, dataValues[i].Percentual]);
+        }
+        new google.visualization.LineChart(document.getElementById('curve_chart')).
+            draw(data, { title: "Carta Controle" });
+    }        
+
+</script>
+
+<div class="container">
+
+    <h3>Carta Controle</h3>
+    Se for necessário fazer alguma mudança nos lotes utilizados no cálculo, volte para a página de <a href="/AreaRestrita/CEP/CalcularLimites">Cálculo dos Limites</a>, realize a alteração e gere um novo Cálculo
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <strong><label>LSC:</label></strong>@Model[0].LSC
+            <strong><label>LC:</label></strong>@Model[0].LC
+            <strong><label>LIC:</label></strong>@Model[0].LIC
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="curve_chart" style="height:600px"></div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>
+                    <style hidden>
+                        Id
+                    </style>
+                </th>
+                <th>Lote</th>
+                <th>Data Analise</th>
+                <th>Operador Analise</th>
+                <th>Total Lentes</th>
+                <th>Qtd Reprov.</th>
+                <th>% Reprov.</th>
+                <th>Status</th>
+                <th>
+                    <style hidden>
+                        Observacoes
+                    </style>
+                </th>
+                <th>Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                <style hidden> @item.idLote </style>
+            </td>
+            <td>@item.Lote</td>
+            <td>@item.DataAnalise</td>
+            <td>@item.OperadorAnaliseNome</td>
+            <td>@item.TotaLentes</td>
+            <td>@item.QtdNaoConforme</td>
+            <td>@item.Percentual</td>
+            <td>@item.Status</td>
+            <td>
+                <style hidden">@item.Observacao</style>
+            </td>
+            <td>
+                <button data-target='#ObservacoesModal' data-toggle='modal' onclick="exibirObservacao('@item.Observacao')"
+                        class='btn btn-primary btn-xs'>
+                    Observação
+                </button>
+            </td>
+        </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"> Quantidade de Amostras: @Model.Count <span id="quantidade"></span> </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<!-- Modal Observacao -->
+<div class="modal fade" id="ObservacoesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h3>Observação</h3>
+            </div>
+            <div class="modal-body">
+
+                <span id="txtobservacao"></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

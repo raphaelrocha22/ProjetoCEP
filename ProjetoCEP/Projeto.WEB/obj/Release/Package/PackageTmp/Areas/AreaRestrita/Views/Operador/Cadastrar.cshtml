@@ -1,0 +1,40 @@
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Operador.OperadorViewModel
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="container">
+        
+        <h2>Cadastro de Operador</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                @Html.LabelFor(m => m.Nome)
+                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @placeholder = "Digite aqui" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Nome)</span>
+                <br />
+
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <br /><br />
+
+                @if (ViewBag.Resultado != null)
+                {
+                    if (ViewBag.Resultado)
+                    {
+                        <span class="alert alert-success">@ViewBag.Mensagem</span>
+                    }
+                    else
+                    {
+                        <span class="alert alert-danger">@ViewBag.Mensagem</span>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="BDcep-Web.config Connection String" description="BDcep A Cadeia de Conexão usada em web.config pelo aplicativo para acessar o banco de dados." defaultValue="Data Source=raphael.database.windows.net;Initial Catalog=cep_oltp;Persist Security Info=True;User ID=raphael;Password=R@ph@el22" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Projetos\\ProjetoCEP\\ProjetoCEP\\Projeto\.WEB\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='BDcep']/@connectionString" />
+  </parameter>
+</parameters>

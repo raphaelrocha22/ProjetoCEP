@@ -1,0 +1,36 @@
+﻿@model Projeto.WEB.Areas.AreaRestrita.Models.Operador.OperadorViewModel
+@{
+    ViewBag.Title = "Excluir";
+    Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Excluir Operador</h2>
+    Deseja realmente excluir o operador abaixo?<br />
+    <a href="/AreaRestrita/Operador/Consultar">Voltar para a página de consulta</a>
+    <hr />
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-2">
+
+            <label>IdOperador:</label><br />
+            @Html.TextBoxFor(m => m.IdOperador, new { @class = "form-control", @readonly = "readonly" })<br />
+
+            <label>Nome:</label>
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @readonly = "readonly" })<br />
+
+            <label>Data de Cadastro:</label>
+            @Html.TextBoxFor(m => m.DataCadastro, new { @class = "form-control", @readonly = "readonly" })<br />
+            <br />
+
+            <input type="submit" value="Excluir" class="btn btn-danger" />
+        </div>
+    </div>
+}
+    
+
+</div>
+
+

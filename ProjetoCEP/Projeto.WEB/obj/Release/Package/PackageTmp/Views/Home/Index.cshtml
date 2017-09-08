@@ -1,0 +1,74 @@
+﻿@model Projeto.WEB.Models.Home.HomeViewModelLogin
+    
+@{
+        ViewBag.Title = "Index";
+    }
+
+    <head>
+
+        <title>Controle Estatistico de Processo</title>
+
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+    </head>
+
+    <body background="~/Imagens/LoginWallpapper.jpg">
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="container">
+                <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title text-center"><strong>SISTEMA CONTROLE ESTATISTICO DE PROCESSO</strong></div>
+                        </div>
+                        <div style="padding-top:30px" class="panel-body">
+                            <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                            <form id="loginform" class="form-horizontal" role="form">
+
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Login" })
+                                    <span class="text-danger">@Html.ValidationMessageFor(model => model.Login)</span>
+
+                                </div>
+
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Senha" })
+                                    <span class="text-danger">@Html.ValidationMessageFor(model => model.Senha)</span>
+                                </div>
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <div class="col-sm-12 controls">
+                                        <input type="submit" value="Login" class="btn btn-primary center-block" style="width:100px" />
+                                        <br />
+
+                                        @if (ViewBag.Mensagem != null)
+                                        {<div class="alert alert-danger">@ViewBag.Mensagem</div>}
+
+                                        @if (Request.QueryString["ReturnUrl"] != null)
+                                        { <div class="alert alert-danger"> Acesso não permitido, por favor faça seu login. </div> }
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12 control">
+                                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                            Não possui uma conta?
+                                            <a href="/Home/Cadastro">Clique aqui</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </body>
