@@ -191,3 +191,81 @@ StackTrace:    em System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnect
 ------------------
 
 
+
+
+Data: 10/09/2017 12:50:29
+ErroCode: -2146232060
+HelpLink: 
+Source: .Net SqlClient Data Provider
+Message: Cannot open server 'raphael' requested by the login. Client with IP address '179.55.111.79' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+StackTrace:    em System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   em System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.Open()
+   em Projeto.DAL.Conexoes.Conexao.AbrirConexao() na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Conexoes\Conexao.cs:linha 20
+   em Projeto.DAL.Persistencias.UsuarioDAL.ObterPorLoginSenha(String login, String senha) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\UsuarioDAL.cs:linha 64
+   em Projeto.WEB.Controllers.HomeController.Index(HomeViewModelLogin model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Controllers\HomeController.cs:linha 32
+------------------
+
+
+
+
+Data: 10/09/2017 12:50:47
+ErroCode: -2146232060
+HelpLink: 
+Source: .Net SqlClient Data Provider
+Message: Cannot open server 'raphael' requested by the login. Client with IP address '179.55.111.79' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+StackTrace:    em System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   em System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.Open()
+   em Projeto.DAL.Conexoes.Conexao.AbrirConexao() na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Conexoes\Conexao.cs:linha 20
+   em Projeto.DAL.Persistencias.UsuarioDAL.ObterPorLoginSenha(String login, String senha) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\UsuarioDAL.cs:linha 64
+   em Projeto.WEB.Controllers.HomeController.Index(HomeViewModelLogin model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Controllers\HomeController.cs:linha 32
+------------------
+
+
+
+
+Data: 10/09/2017 12:50:58
+ErroCode: -2146232060
+HelpLink: 
+Source: .Net SqlClient Data Provider
+Message: Cannot open server 'raphael' requested by the login. Client with IP address '179.55.111.79' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+StackTrace:    em System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   em System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   em System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   em System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   em System.Data.SqlClient.SqlConnection.Open()
+   em Projeto.DAL.Conexoes.Conexao.AbrirConexao() na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Conexoes\Conexao.cs:linha 20
+   em Projeto.DAL.Persistencias.UsuarioDAL.ObterPorLoginSenha(String login, String senha) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\Persistencias\UsuarioDAL.cs:linha 64
+   em Projeto.WEB.Controllers.HomeController.Index(HomeViewModelLogin model) na D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.WEB\Controllers\HomeController.cs:linha 32
+------------------
+
+

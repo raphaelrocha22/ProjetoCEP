@@ -118,34 +118,34 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
-
         public ActionResult ResultadoCalculoLimites()
         {
-            var listaModel = new List<CalcularLimitesViewModel>();
+            return View();
+        }
 
+        public JsonResult ResultadoCalculoLimitesData()
+        {
             try
             {
                 var d = new CepDAL();
-                List<Lote> lista = d.ObterAmostras();
-                LimitesControle limites = d.CalcularLimites(lista);
+                LimitesControle limites = d.CalcularLimites(d.ObterAmostras());
 
-                foreach (var item in lista)
+                var lista = new List<CalcularLimitesViewModel>();
+
+                foreach (Lote item in d.ObterAmostras())
                 {
                     var l = new CalcularLimitesViewModel();
-
                     l.idLote = item.IdLote;
                     l.Lote = item.NumeroLote;
-                    l.DataAnalise = item.DataAnalise;
+                    l.DataAnaliseGrafico = item.DataAnalise.ToString("dd/MM hh:mm");
                     l.OperadorAnaliseNome = item.OperadorAnalise.Nome;
                     l.TotaLentes = item.TotalLentes;
                     l.QtdNaoConforme = item.QtdNaoConforme;
-                    l.Percentual = item.Percentual;
                     l.LSC = limites.LSC;
                     l.LC = limites.LC;
                     l.LIC = limites.LIC;
-                    l.Observacao = item.Observacao;
-
-                    if (l.Percentual > limites.LSC)
+                    l.Percentual = item.Percentual;
+                    if (l.Percentual > l.LSC)
                     {
                         l.Status = "Reprovado";
                     }
@@ -154,39 +154,17 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                         l.Status = "Aprovado";
                     }
 
-                    listaModel.Add(l);
+                    l.Observacao = item.Observacao;
+
+                    lista.Add(l);
                 }
+
+                return Json(lista);
             }
             catch (Exception e)
             {
-                TempData["MensagemErro"] = e.Message;
+                return Json(e.Message);
             }
-
-            return View(listaModel);
-        }
-
-        [HttpPost]
-        public JsonResult GraficoCalculoLimitesData()
-        {
-            var d = new CepDAL();
-            List<Lote> lista = d.ObterAmostras();
-            LimitesControle limites = d.CalcularLimites(lista);
-
-            var list = new List<CalcularLimitesViewModel>();
-
-            foreach (var item in lista)
-            {
-                var l = new CalcularLimitesViewModel();
-                l.DataAnaliseGrafico = item.DataAnalise.ToString("dd/MM/yyyy hh:mm");
-                l.LSC = limites.LSC;
-                l.LC = limites.LC;
-                l.LIC = limites.LIC;
-                l.Percentual = item.Percentual;
-
-                list.Add(l);
-            }
-
-            return Json(list);
         }
 
         public ActionResult HistoricoLimites()
