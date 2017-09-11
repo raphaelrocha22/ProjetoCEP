@@ -137,7 +137,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     var l = new CalcularLimitesViewModel();
                     l.idLote = item.IdLote;
                     l.Lote = item.NumeroLote;
-                    l.DataAnaliseGrafico = item.DataAnalise.ToString("dd/MM hh:mm");
+                    l.DataAnaliseGrafico = item.DataAnalise.ToString("dd/MM HH:mm");
                     l.OperadorAnaliseNome = item.OperadorAnalise.Nome;
                     l.TotaLentes = item.TotalLentes;
                     l.QtdNaoConforme = item.QtdNaoConforme;
@@ -145,6 +145,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     l.LC = limites.LC;
                     l.LIC = limites.LIC;
                     l.Percentual = item.Percentual;
+                    l.DataCalculo = DateTime.Now;
                     if (l.Percentual > l.LSC)
                     {
                         l.Status = "Reprovado";
@@ -165,6 +166,16 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             {
                 return Json(e.Message);
             }
+        }
+
+
+        public ActionResult CadastrarLimites()
+        {
+            var d = new 
+
+
+
+            return View();
         }
 
         public ActionResult HistoricoLimites()

@@ -15,7 +15,5 @@ namespace Projeto.Entidades
         public DateTime DataCalculo { get; set; }
         public bool Status { get; set; }
         public TipoCarta TipoCarta { get; set; }
-
-        public List<Lote> Lotes { get; set; }
     }
 }

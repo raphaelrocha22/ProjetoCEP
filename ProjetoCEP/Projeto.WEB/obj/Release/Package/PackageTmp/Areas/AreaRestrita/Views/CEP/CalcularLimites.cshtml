@@ -8,7 +8,6 @@
 
     $(document).ready(function () {
         $("#btnCalcularLimites").click(function () {
-            alert("Redirecionamento");
             $(location).attr('href', '/AreaRestrita/CEP/ResultadoCalculoLimites');
         });
     });
@@ -17,8 +16,18 @@
 
 <div class="container">
 
-    <h2>Calcular novo Limite de controle</h2>
-    <hr />
+    <div class="row">
+        <div class="col-md-5">
+
+            <h2>Calcular novo Limite de controle</h2>
+            <hr />
+
+        </div>
+
+        <div class="col-md-2 pull-right">
+            <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
+        </div>
+    </div>
 
     @using (Html.BeginForm())
     {
@@ -49,46 +58,46 @@
 
         </div>
 
-            <div class="row" style="margin-top:20px">
+        <div class="row" style="margin-top:20px">
 
-                <div class="col-md-2 text-center">
-                    @Html.LabelFor(m => m.TotaLentes)
-                    @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
-                </div>
-
-                <div class="col-md-2 text-center">
-                    @Html.LabelFor(m => m.QtdNaoConforme)
-                    @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
-                </div>
-
-                <div class="col-md-1">
-                    <label>% Reprov.</label><br />
-                    <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
-                </div>
-
-                <div class="col-md-4 text-center">
-                    @Html.LabelFor(m => m.Observacao)
-                    @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
-                </div>
-
-                <div class="col-md-1">
-                    <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
-                </div>
-
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(m => m.TotaLentes)
+                @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
             </div>
 
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(m => m.QtdNaoConforme)
+                @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+            </div>
 
-            <div class="row" style="margin-top:20px">
-                <div class="col-md-11 text-center">
+            <div class="col-md-1">
+                <label>% Reprov.</label><br />
+                <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
+            </div>
 
-                    @if (TempData["MensagemCadastro"] != null)
+            <div class="col-md-4 text-center">
+                @Html.LabelFor(m => m.Observacao)
+                @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+            </div>
+
+            <div class="col-md-1">
+                <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
+            </div>
+
+        </div>
+
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-11 text-center">
+
+                @if (TempData["MensagemCadastro"] != null)
                 {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
 
-                    @if (TempData["MensagemErro"] != null)
+                @if (TempData["MensagemErro"] != null)
                 {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
 
-                </div>
             </div>
+        </div>
             <hr />
     }
 
@@ -99,12 +108,6 @@
                 Html.RenderAction("Consultar");
             }
 
-        </div>
-
-        <div class="col-md-2 pull-right">
-            <br />
-            <button data-target='#CalcularLimite' data-toggle='modal' class="btn btn-success">Calcular Limites de Controle</button>
-            <br /><br /><br />
         </div>
 
     </div>
@@ -125,7 +128,7 @@
 
             </div>
             <div class="modal-footer">
-                <button  class="btn btn-danger" data-dismiss="modal">NÃO</button>
+                <button class="btn btn-danger" data-dismiss="modal">NÃO</button>
                 <button id="btnCalcularLimites" class="btn btn-success" data-dismiss="modal">SIM</button>
             </div>
         </div>

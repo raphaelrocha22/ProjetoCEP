@@ -1,5 +1,4 @@
-﻿@model List<Projeto.WEB.Areas.AreaRestrita.Models.CEP.CalcularLimitesViewModel>
-@{
+﻿@{
     ViewBag.Title = "ResultadoCalculoLimites";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
@@ -12,27 +11,72 @@
     $(document).ready(function () {
         $.ajax({
             type: 'POST',
-            url: '/AreaRestrita/CEP/GraficoCalculoLimitesData',
+            url: '/AreaRestrita/CEP/ResultadoCalculoLimitesData',
             success:
-            function (response) {
-                drawVisualization(response);
+            function (lista) {
+                $('#LSC').html(lista[0].LSC);
+                $('#LC').html(lista[0].LC);
+                $('#LIC').html(lista[0].LIC);
+
+                drawVisualization(lista);
+                bindTabela(lista);
+            },
+            error: function (e) {
+                alert(e.status);
             }
         });
     });
 
-    function drawVisualization(dataValues) {
+    function drawVisualization(lista) {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'DataAnaliseGrafico');
         data.addColumn('number', 'LSC');
         data.addColumn('number', 'LC');
         data.addColumn('number', 'LIC');
         data.addColumn('number', 'Percentual');
-        for (var i = 0; i < dataValues.length; i++) {
-            data.addRow([dataValues[i].DataAnaliseGrafico, dataValues[i].LSC, dataValues[i].LC, dataValues[i].LIC, dataValues[i].Percentual]);
-        }
-        new google.visualization.LineChart(document.getElementById('curve_chart')).
-            draw(data, { title: "Carta Controle" });
-    }        
+        for (var i = 0; i < lista.length; i++) {
+            data.addRow([lista[i].DataAnaliseGrafico, lista[i].LSC, lista[i].LC, lista[i].LIC, lista[i].Percentual]);
+        };
+        var options = {
+            fontSize: 11,
+            title: 'Carta Controle',
+            legend: { position: 'top' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data,options);
+    }
+
+    function bindTabela(lista) {
+        var conteudo = "";
+        for (var i = 0; i < lista.length; i++) {
+            conteudo += "<tr>";
+
+            conteudo += "<td><style hidden>" + lista[i].idLote + "</style></td>";
+            conteudo += "<td>" + lista[i].Lote + "</td>";
+            conteudo += "<td>" + lista[i].DataAnaliseGrafico + "</td>";
+            conteudo += "<td>" + lista[i].OperadorAnaliseNome + "</td>";
+            conteudo += "<td>" + lista[i].TotaLentes + "</td>";
+            conteudo += "<td>" + lista[i].QtdNaoConforme + "</td>";
+            conteudo += "<td>" + lista[i].Percentual + "</td>";
+            conteudo += "<td>" + lista[i].Status + "</td>";
+            conteudo += "<td><style hidden>" + lista[i].Observacao + "</style></td>";
+
+            conteudo += "<td>";
+            conteudo += "<button data-target='#ObservacoesModal' data-toggle='modal' onclick = 'exibirObservacao(" + lista[i].Observacao + ")' class='btn btn-primary btn-sm' > Observação </button>";
+            conteudo += "</td>";
+
+            conteudo += "</tr>";
+        };
+
+        $("#tabela tbody").html(conteudo);
+        //quantidade obtida..
+        $("#quantidade").html(lista.length);
+    }
+
+    function exibirObservacao(obs) {
+        $("#txtobservacao").html(obs);
+    }
 
 </script>
 
@@ -45,9 +89,9 @@
     <div class="row">
         <div class="col-md-4">
 
-            <strong><label>LSC:</label></strong>@Model[0].LSC
-            <strong><label>LC:</label></strong>@Model[0].LC
-            <strong><label>LIC:</label></strong>@Model[0].LIC
+            <strong>LSC: </strong><label id="LSC"></label>
+            <strong>LC: </strong><label id="LC"></label>
+            <strong>LIC: </strong><label id="LIC"></label>
 
         </div>
     </div>
@@ -58,15 +102,11 @@
         </div>
     </div>
 
-    <table class="table table-hover">
+    <table id="tabela" class="table table-hover">
 
         <thead>
             <tr>
-                <th>
-                    <style hidden>
-                        Id
-                    </style>
-                </th>
+                <th><style hidden>Id</style></th>
                 <th>Lote</th>
                 <th>Data Analise</th>
                 <th>Operador Analise</th>
@@ -74,43 +114,16 @@
                 <th>Qtd Reprov.</th>
                 <th>% Reprov.</th>
                 <th>Status</th>
-                <th>
-                    <style hidden>
-                        Observacoes
-                    </style>
-                </th>
+                <th><style hidden>Observacoes</style></th>
                 <th>Operações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-        <tr>
-            <td>
-                <style hidden> @item.idLote </style>
-            </td>
-            <td>@item.Lote</td>
-            <td>@item.DataAnalise</td>
-            <td>@item.OperadorAnaliseNome</td>
-            <td>@item.TotaLentes</td>
-            <td>@item.QtdNaoConforme</td>
-            <td>@item.Percentual</td>
-            <td>@item.Status</td>
-            <td>
-                <style hidden">@item.Observacao</style>
-            </td>
-            <td>
-                <button data-target='#ObservacoesModal' data-toggle='modal' onclick="exibirObservacao('@item.Observacao')"
-                        class='btn btn-primary btn-xs'>
-                    Observação
-                </button>
-            </td>
-        </tr>
-            }
+           
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6"> Quantidade de Amostras: @Model.Count <span id="quantidade"></span> </td>
+                <td colspan="6"> Quantidade de Amostras: <span id="quantidade"></span></td>
             </tr>
         </tfoot>
     </table>

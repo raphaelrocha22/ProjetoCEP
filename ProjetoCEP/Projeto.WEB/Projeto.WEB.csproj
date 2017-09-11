@@ -89,10 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CEP_OLTP.mdf" />
-    <Content Include="App_Data\CEP_OLTP_log.ldf">
-      <DependentUpon>CEP_OLTP.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -170,6 +166,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\AreaRestrita\Views\Usuario\" />
     <Folder Include="Logs\" />
   </ItemGroup>

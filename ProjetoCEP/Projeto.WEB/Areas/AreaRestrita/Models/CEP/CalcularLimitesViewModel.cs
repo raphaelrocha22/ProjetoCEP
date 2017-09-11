@@ -67,5 +67,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
         }
 
         public string DataAnaliseGrafico { get; set; }
+        public DateTime DataCalculo { get; set; }
     }
 }
