@@ -43,11 +43,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                         l.OperadorAnalise.IdOperador = model.IdOperadorAnalise;
                         l.TotalLentes = Convert.ToInt32(model.TotaLentes);
                         l.QtdNaoConforme = Convert.ToInt32(model.QtdNaoConforme);
-                        l.Percentual = model.QtdNaoConforme/model.TotaLentes;
+                        l.Percentual = model.QtdNaoConforme / model.TotaLentes;
                         if (model.Observacao == null)
                             model.Observacao = string.Empty;
                         l.Observacao = model.Observacao;
-                        
+
                         var d = new CepDAL();
                         d.CadastrarAmostras(l);
 
@@ -101,7 +101,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return PartialView("_ConsultarAmostras", lista);
         }
 
-        
+
         public JsonResult Excluir(int id)
         {
             try
@@ -145,7 +145,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                     l.LC = limites.LC;
                     l.LIC = limites.LIC;
                     l.Percentual = item.Percentual;
-                    l.DataCalculo = DateTime.Now;
+                    l.DataCalculo = DateTime.Now.ToString();
                     if (l.Percentual > l.LSC)
                     {
                         l.Status = "Reprovado";
@@ -169,13 +169,30 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         }
 
 
-        public ActionResult CadastrarLimites()
+        public JsonResult CadastrarLimites(CadastrarLimitesViewModel model)
         {
-            var d = new 
+            try
+            {
+                var l = new LimitesControle();
+                l.TipoCarta = new TipoCarta();
 
+                l.DataCalculo = model.DataCalculo;
+                l.LSC = model.LSC;
+                l.LC = model.LC;
+                l.LIC = model.LIC;
+                l.Status = true;
+                l.TipoCarta.IdTipoCarta = 2;
 
+                var d = new CepDAL();
+                d.CadastrarLimites(l);
 
-            return View();
+                return Json("Limite Cadastrado com sucesso");
+
+            }
+            catch (Exception e)
+            {
+                return Json($"Erro: {e.Message}");
+            }
         }
 
         public ActionResult HistoricoLimites()

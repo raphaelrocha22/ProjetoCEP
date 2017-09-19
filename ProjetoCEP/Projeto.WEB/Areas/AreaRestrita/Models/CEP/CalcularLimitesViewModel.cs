@@ -31,11 +31,11 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
 
         [Required(ErrorMessage = "Informe o Total de Lentes do Lote")]
         [Display(Name = "Total Lentes")]
-        public int TotaLentes { get; set; }
+        public double TotaLentes { get; set; }
 
         [Required(ErrorMessage = "Informe a qtd de defeitos")]
         [Display(Name = "Qtd Não conforme")]
-        public int QtdNaoConforme { get; set; }
+        public double QtdNaoConforme { get; set; }
 
         public double Percentual { get; set; }
 
@@ -67,6 +67,6 @@ namespace Projeto.WEB.Areas.AreaRestrita.Models.CEP
         }
 
         public string DataAnaliseGrafico { get; set; }
-        public DateTime DataCalculo { get; set; }
+        public string DataCalculo { get; set; }
     }
 }

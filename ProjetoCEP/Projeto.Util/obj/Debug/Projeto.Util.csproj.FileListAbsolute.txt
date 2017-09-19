@@ -9,3 +9,8 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.csprojReso
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.pdb
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.csproj.CoreCompileInputs.cache
+H:\Projeto CEP\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.Util\bin\Debug\Projeto.Util.pdb
+H:\Projeto CEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.csprojResolveAssemblyReference.cache
+H:\Projeto CEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.Util\obj\Debug\Projeto.Util.pdb

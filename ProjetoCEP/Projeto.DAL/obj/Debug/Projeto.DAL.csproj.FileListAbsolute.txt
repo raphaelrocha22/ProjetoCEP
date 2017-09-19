@@ -17,3 +17,12 @@ D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolv
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
 D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
+H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb

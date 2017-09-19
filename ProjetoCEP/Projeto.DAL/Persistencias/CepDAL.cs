@@ -134,5 +134,27 @@ namespace Projeto.DAL.Persistencias
             return limites;
         }
 
+        public void CadastrarLimites(LimitesControle limites)
+        {
+            AbrirConexao();
+
+            cmd = new SqlCommand("update LimitesControle set Status = 0 where Status = 1",con);
+            cmd.ExecuteNonQuery();
+
+
+            string query = "insert into LimitesControle (DataCalculo, LSC, LC, LIC, Status, IdTipoCarta) " +
+                           "values ( @DataCalculo, @LSC, @LC, @LIC, @Status, @IdTipoCarta)";
+
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@DataCalculo", limites.DataCalculo);
+            cmd.Parameters.AddWithValue("@LSC", limites.LSC);
+            cmd.Parameters.AddWithValue("@LC", limites.LC);
+            cmd.Parameters.AddWithValue("@LIC", limites.LIC);
+            cmd.Parameters.AddWithValue("@Status", limites.Status);
+            cmd.Parameters.AddWithValue("@IdTipoCarta", limites.TipoCarta.IdTipoCarta);
+            cmd.ExecuteNonQuery();
+
+            FecharConexao();
+        }
     }
 }

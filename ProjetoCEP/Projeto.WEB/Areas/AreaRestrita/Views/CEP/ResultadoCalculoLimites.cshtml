@@ -14,10 +14,11 @@
             url: '/AreaRestrita/CEP/ResultadoCalculoLimitesData',
             success:
             function (lista) {
+
                 $('#DataCalculo').html(lista[0].DataCalculo);
-                $('#LSC').html(lista[0].LSC);
-                $('#LC').html(lista[0].LC);
-                $('#LIC').html(lista[0].LIC);
+                $('#LSC').html(String(lista[0].LSC).replace(".", ","));
+                $('#LC').html(String(lista[0].LC).replace(".", ","));
+                $('#LIC').html(String(lista[0].LIC).replace(".",","));
 
                 drawVisualization(lista);
                 bindTabela(lista);
@@ -27,23 +28,22 @@
             }
         });
 
-        $("#btnCadastrarLimites").click(function () {
+        $("#btnCadastrarLimites").click(function () {     
             var model = {
-                DataCalculo: $("#DataCalculo").val(),
-                LSC: $("#LSC").val(),
-                LC: $("#LC").val(),
-                LIC: $("#LIC").val()
+                DataCalculo: $("#DataCalculo").html(),
+                LSC: $("#LSC").html(),
+                LC: $("#LC").html(),
+                LIC: $("#LIC").html()
             };
             $.ajax({
                 type: "POST",
-                url: "/Movimentacao/Atualizar",
+                url: "/AreaRestrita/CEP/CadastrarLimites",
                 data: model,
                 success: function (msg) {
-                    $("#mensagem").html(msg);
-                    consultar();
+                    alert(msg);
                 },
                 error: function (e) {
-                    $("#mensagem").html("Erro: " + e.status);
+                    alert(e)
                 }
             });
         });
@@ -109,7 +109,7 @@
     <hr />
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
 
             <strong>Data Cálculo: </strong><label id="DataCalculo"></label>
             <strong>LSC: </strong><label id="LSC"></label>
