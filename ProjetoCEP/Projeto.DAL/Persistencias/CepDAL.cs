@@ -194,7 +194,38 @@ namespace Projeto.DAL.Persistencias
             return limite;
         }
 
+        public List<LimitesControle> ObterLimites()
+        {
+            AbrirConexao();
 
+            string query = "select l.*, c.Modelo, c.Carta from LimitesControle l " +
+                "inner join TipoCarta c on l.IdTipoCarta = c.IdTipoCarta";
+            cmd = new SqlCommand(query, con);
+            dr = cmd.ExecuteReader();
+
+            var lista = new List<LimitesControle>();
+
+            while (dr.Read())
+            {
+                var l = new LimitesControle();
+                l.TipoCarta = new TipoCarta();
+
+                l.IdLimites = (int)dr["IdLimites"];
+                l.DataCalculo = (DateTime)dr["DataCalculo"];
+                l.LSC = Convert.ToDouble(dr["LSC"]);
+                l.LC = Convert.ToDouble(dr["LC"]);
+                l.LIC = Convert.ToDouble(dr["LIC"]);
+                l.Status = (bool)dr["Status"];
+                l.TipoCarta.Modelo = (string)dr["Modelo"];
+                l.TipoCarta.Carta = (string)dr["Carta"];
+
+                lista.Add(l);
+            }
+            
+            FecharConexao();
+            return lista;
+        }
+        
         public void TransferirAmostrasParaLote(List<Lote> lista, LimitesControle limite)
         {
             AbrirConexao();
@@ -228,6 +259,22 @@ namespace Projeto.DAL.Persistencias
 
                 cmd.ExecuteNonQuery();
             }
+
+            FecharConexao();
+        }
+
+        public void Ativarlimite(int id)
+        {
+            AbrirConexao();
+
+            string query = "update LimitesControle set Status = 0";
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+
+            query = "update LimitesControle set Status = 1 where IdLimites = @id";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
 
             FecharConexao();
         }

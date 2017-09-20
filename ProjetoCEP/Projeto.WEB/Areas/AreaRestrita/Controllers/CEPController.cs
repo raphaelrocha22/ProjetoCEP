@@ -203,8 +203,59 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
 
         public ActionResult HistoricoLimites()
         {
-            return View();
+            try
+            {
+                var d = new CepDAL();
+                var model = new List<ConsultarLimitesViewModel>();
+
+                foreach (var item in d.ObterLimites())
+                {
+                    var l = new ConsultarLimitesViewModel();
+                    
+                    l.IdLimites = item.IdLimites;
+                    l.DataCalculo = item.DataCalculo;
+                    l.LSC = item.LSC;
+                    l.LC = item.LC;
+                    l.LIC = item.LIC;
+                    l.Modelo = item.TipoCarta.Modelo;
+                    l.Carta = item.TipoCarta.Carta;
+                    if (item.Status)
+                    {
+                        l.Status = "Ativo";
+                    }
+                    else
+                    {
+                        l.Status = "Inativo";
+                    }
+
+                    model.Add(l);
+                }
+
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return View(new ConsultarLimitesViewModel());
+            }
+                        
         }
+
+        public JsonResult AtivarLimite(int id)
+        {
+            try
+            {
+                var d = new CepDAL();
+                d.Ativarlimite(id);
+
+                return Json("Limite padrão alterado com sucesso");
+            }
+            catch (Exception e)
+            {
+
+                return Json("Erro: e");
+            }
+        }
+
 
     }
 }
