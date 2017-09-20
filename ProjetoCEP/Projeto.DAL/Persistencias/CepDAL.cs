@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Projeto.Entidades.Tipos;
 
 namespace Projeto.DAL.Persistencias
 {
@@ -56,7 +57,7 @@ namespace Projeto.DAL.Persistencias
                 l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
                 l.Percentual = (double)dr["Percentual"];
                 l.Observacao = (string)dr["Observacao"].ToString();
-                
+                                
                 lista.Add(l);
             }
             FecharConexao();
@@ -109,6 +110,14 @@ namespace Projeto.DAL.Persistencias
             FecharConexao();
         }
 
+        public void Excluir(List<Lote> lista)
+        {
+            foreach (var item in lista)
+            {
+                Excluir(item.IdLote);
+            }
+        }
+
         public LimitesControle CalcularLimites(List<Lote> lotes)
         {
             var limites = new LimitesControle();
@@ -153,6 +162,72 @@ namespace Projeto.DAL.Persistencias
             cmd.Parameters.AddWithValue("@Status", limites.Status);
             cmd.Parameters.AddWithValue("@IdTipoCarta", limites.TipoCarta.IdTipoCarta);
             cmd.ExecuteNonQuery();
+
+            FecharConexao();
+        }
+
+        public LimitesControle ObterLimiteAtivo()
+        {
+            AbrirConexao();
+
+            string query = "select * from LimitesControle where Status = 1";
+            cmd = new SqlCommand(query, con);
+            dr = cmd.ExecuteReader();
+
+            LimitesControle limite = null;
+
+            if (dr.Read())
+            {
+                limite = new LimitesControle();
+                limite.TipoCarta = new TipoCarta();
+
+                limite.IdLimites = (int)dr["IdLimites"];
+                limite.DataCalculo = (DateTime)dr["DataCalculo"];
+                limite.LSC = Convert.ToDouble(dr["LSC"]);
+                limite.LC = Convert.ToDouble(dr["LC"]);
+                limite.LIC =Convert.ToDouble(dr["LIC"]);
+                limite.Status = (bool)dr["Status"];
+                limite.TipoCarta.IdTipoCarta = (int)dr["IdTipoCarta"];
+            }
+
+            FecharConexao();
+            return limite;
+        }
+
+
+        public void TransferirAmostrasParaLote(List<Lote> lista, LimitesControle limite)
+        {
+            AbrirConexao();
+
+            foreach (var item in lista)
+            {
+                string query = "insert into Lote (Lote, DataAnalise, TotalLentes, QtdNaoConforme, Percentual, " +
+                    "Resultado, TipoLote, IdLimites, IdOperadorAnalise, Observacao) " +
+                    "values (@Lote, @DataAnalise, @TotalLentes, @QtdNaoConforme, @Percentual, " +
+                    "@Resultado, @TipoLote, @IdLimites, @IdOperadorAnalise, @Observacao)";
+
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Lote", item.NumeroLote);
+                cmd.Parameters.AddWithValue("@DataAnalise", item.DataAnalise);
+                cmd.Parameters.AddWithValue("@TotalLentes", item.TotalLentes);
+                cmd.Parameters.AddWithValue("@QtdNaoConforme", item.QtdNaoConforme);
+                cmd.Parameters.AddWithValue("@Percentual", item.Percentual);
+                cmd.Parameters.AddWithValue("@TipoLote", "Amostra");
+                cmd.Parameters.AddWithValue("@IdLimites", limite.IdLimites);
+                cmd.Parameters.AddWithValue("@IdOperadorAnalise", item.OperadorAnalise.IdOperador);
+                cmd.Parameters.AddWithValue("@Observacao", item.Observacao);
+
+                if (item.Percentual <= limite.LSC && item.Percentual >= limite.LIC)
+                {
+                    cmd.Parameters.AddWithValue("@Resultado", "Aprovado");
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Resultado", "Reprovado");
+                }
+
+                cmd.ExecuteNonQuery();
+            }
 
             FecharConexao();
         }

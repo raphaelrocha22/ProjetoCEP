@@ -186,6 +186,12 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
                 var d = new CepDAL();
                 d.CadastrarLimites(l);
 
+                var lista = new List<Lote>();
+                lista = d.ObterAmostras();
+
+                d.TransferirAmostrasParaLote(lista, d.ObterLimiteAtivo());
+                d.Excluir(lista);
+
                 return Json("Limite Cadastrado com sucesso");
 
             }

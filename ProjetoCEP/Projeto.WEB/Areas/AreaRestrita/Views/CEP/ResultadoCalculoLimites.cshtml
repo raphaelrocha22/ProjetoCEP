@@ -41,6 +41,7 @@
                 data: model,
                 success: function (msg) {
                     alert(msg);
+                    $(location).attr('href', '/AreaRestrita/CEP/Index');
                 },
                 error: function (e) {
                     alert(e)
