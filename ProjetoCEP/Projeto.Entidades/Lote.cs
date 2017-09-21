@@ -1,5 +1,4 @@
-﻿using Projeto.Entidades.Tipos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +15,9 @@ namespace Projeto.Entidades
         public int TotalLentes { get; set; }
         public int QtdNaoConforme { get; set; }
         public double Percentual { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
         public LimitesControle Limites { get; set; }
-        public TipoLote TipoLote { get; set; }
+        public string TipoLote { get; set; }
         public string Observacao { get; set; }
     }
 }

@@ -45,8 +45,6 @@
     <Compile Include="Operador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoCarta.cs" />
-    <Compile Include="Tipos\Status.cs" />
-    <Compile Include="Tipos\TipoLote.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup />

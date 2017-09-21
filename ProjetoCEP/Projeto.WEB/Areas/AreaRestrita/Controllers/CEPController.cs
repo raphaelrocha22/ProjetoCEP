@@ -1,6 +1,5 @@
 ﻿using Projeto.DAL.Persistencias;
 using Projeto.Entidades;
-using Projeto.Entidades.Tipos;
 using Projeto.Util;
 using Projeto.WEB.Areas.AreaRestrita.Models.CEP;
 using System;
@@ -18,8 +17,92 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
         // GET: AreaRestrita/CEP
         public ActionResult Index()
         {
-            return View();
+            return View(new CadastrarLoteViewModel());
         }
+        
+        [HttpPost]
+        public ActionResult Index(CadastrarLoteViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.TotaLentes >= model.QtdNaoConforme)
+                {
+                    try
+                    {
+                        var d = new CepDAL();
+                        LimitesControle limite = d.ObterLimiteAtivo();
+
+                        var l = new Lote();
+                        l.OperadorAnalise = new Operador();
+                        l.Limites = new LimitesControle();
+
+                        l.NumeroLote = model.Lote;
+                        l.DataAnalise = model.DataAnalise;
+                        l.OperadorAnalise.IdOperador = model.IdOperadorAnalise;
+                        l.TotalLentes = Convert.ToInt32(model.TotaLentes);
+                        l.QtdNaoConforme = Convert.ToInt32(model.QtdNaoConforme);
+                        l.Percentual = model.QtdNaoConforme / model.TotaLentes;
+                        if (model.Observacao == null)
+                            model.Observacao = string.Empty;
+                        l.Observacao = model.Observacao;
+                        if (l.Percentual <= limite.LSC)
+                        {
+                            l.Status = "Aprovado";
+                        }
+                        else
+                        {
+                            l.Status = "Reprovado";
+                        }
+                        l.TipoLote = "Producao";
+                        l.Limites.IdLimites = limite.IdLimites;
+                        
+                        d.CadastrarLote(l);
+
+                        ModelState.Clear();
+                        TempData["MensagemCadastro"] = $"Lote {model.Lote}, incluído com sucesso.";
+
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.HResult == -2146232060)
+                        {
+                            //TempData["MensagemErro"] = e.Message;
+                            TempData["MensagemErro"] = "Um lote com essa numeração já foi inserido no sistema";
+                        }
+                        else
+                        {
+                            //TempData["MensagemErro"] = e.Message;
+                            TempData["MensagemErro"] = "Erro não esperado. Tente novamente, se o erro persistir entre em contato com o administrador do sistema";
+                            Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
+                        }
+                    }
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Por favor, verifique se a quantidade não conforme não está maior que o total de lentes";
+                }
+            }
+
+            return View(new CadastrarLoteViewModel());
+        }
+
+        public JsonResult LimiteAtivo()
+        {
+            var d = new CepDAL();
+            LimitesControle l = d.ObterLimiteAtivo();
+
+            return Json(l);
+        }
+
+
+
+
+
+
+
+
+
+
 
         public ActionResult CalcularLimites()
         {

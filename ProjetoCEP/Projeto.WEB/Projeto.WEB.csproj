@@ -141,6 +141,7 @@
     <Compile Include="Areas\AreaRestrita\Controllers\OperadorController.cs" />
     <Compile Include="Areas\AreaRestrita\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\AreaRestrita\Models\CEP\CadastrarLimitesViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\CEP\CadastrarLoteViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\CEP\CalcularLimitesViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\CEP\ConsultarLimitesViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Operador\OperadorViewModel.cs" />

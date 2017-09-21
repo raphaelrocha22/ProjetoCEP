@@ -1,11 +1,124 @@
-﻿
+﻿@model  Projeto.WEB.Areas.AreaRestrita.Models.CEP.CadastrarLoteViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/AreaRestrita/CEP/LimiteAtivo",
+            success: function (limite) {
+                $('#lblModelo').html(limite.TipoCarta.Modelo);
+                $('#lblCarta').html(limite.TipoCarta.Carta);
+                $('#lblLSC').html(limite.LSC);
+                $('#lblLC').html(limite.LC);
+                $('#lblLIC').html(limite.LIC);
+            }
+        });
+
+    });
+
+</script>
+
+
+
 <div class="container">
-    <h2>Index</h2>
+    <h3>Controle Estatístico de Processo</h3>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-10">
+                    <strong>Modelo: </strong><label id="lblModelo"></label> /
+                    <strong>Carta: </strong><label id="lblCarta"></label> /
+                    <strong>LSC: </strong><label id="lblLSC"></label> /
+                    <strong>LC: </strong><label id="lblLC"></label> /
+                    <strong>LIC: </strong><label id="lblLIC"></label> /
+                </div>
+            </div>
+
+            <br />
+            <h4>Cadastrar Lotes:</h4>
+            <br />
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <div class="row">
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.Lote)
+                        @Html.TextBoxFor(m => m.Lote, new { @class = "form-control text-center", @placeholder = "Digite aqui" })
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        @Html.LabelFor(m => m.DataAnalise)
+                        @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control text-center", @type = "datetime-local" })
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        @Html.LabelFor(m => m.IdOperadorAnalise)
+                        @Html.DropDownListFor(m => m.IdOperadorAnalise,
+                                    Model.ListagemOperador,
+                                    "- Selecione uma opção -",
+                                    new { @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top:20px">
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.TotaLentes)
+                        @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
+                    </div>
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.QtdNaoConforme)
+                        @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+                    </div>
+
+                    <div class="col-md-1">
+                        <label>% Reprov.</label><br />
+                        <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        @Html.LabelFor(m => m.Observacao)
+                        @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+                    </div>
+
+                    <div class="col-md-1">
+                        <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
+                    </div>
+
+                </div>
+
+
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-11 text-center">
+
+                        @if (TempData["MensagemCadastro"] != null)
+                        {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
+
+                        @if (TempData["MensagemErro"] != null)
+                        {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
+
+                    </div>
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+
+
+
 </div>
 
 

@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Projeto.Entidades.Tipos;
 
 namespace Projeto.DAL.Persistencias
 {
@@ -170,7 +169,8 @@ namespace Projeto.DAL.Persistencias
         {
             AbrirConexao();
 
-            string query = "select * from LimitesControle where Status = 1";
+            string query = "select l.*, c.Modelo, c.Carta from LimitesControle l " +
+                "inner join TipoCarta c on l.IdTipoCarta = c.IdTipoCarta where Status = 1";
             cmd = new SqlCommand(query, con);
             dr = cmd.ExecuteReader();
 
@@ -188,6 +188,8 @@ namespace Projeto.DAL.Persistencias
                 limite.LIC =Convert.ToDouble(dr["LIC"]);
                 limite.Status = (bool)dr["Status"];
                 limite.TipoCarta.IdTipoCarta = (int)dr["IdTipoCarta"];
+                limite.TipoCarta.Modelo = (string)dr["Modelo"];
+                limite.TipoCarta.Carta = (string)dr["Carta"];
             }
 
             FecharConexao();
@@ -274,6 +276,29 @@ namespace Projeto.DAL.Persistencias
             query = "update LimitesControle set Status = 1 where IdLimites = @id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+
+            FecharConexao();
+        }
+
+        public void CadastrarLote(Lote l)
+        {
+            AbrirConexao();
+
+            string query = "insert into Lote (Lote, DataAnalise, TotalLentes, QtdNaoConforme, Percentual, Resultado, TipoLote, IdLimites, IdOperadorAnalise, Observacao) " +
+                "values(@Lote, @DataAnalise, @TotalLentes, @QtdNaoConforme, @Percentual, @Resultado, @TipoLote, @IdLimites, @IdOperadorAnalise, @Observacao)";
+
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Lote", l.NumeroLote);
+            cmd.Parameters.AddWithValue("@DataAnalise", l.DataAnalise);
+            cmd.Parameters.AddWithValue("@TotalLentes", l.TotalLentes);
+            cmd.Parameters.AddWithValue("@QtdNaoConforme", l.QtdNaoConforme);
+            cmd.Parameters.AddWithValue("@Percentual", l.Percentual);
+            cmd.Parameters.AddWithValue("@Resultado", l.Status);
+            cmd.Parameters.AddWithValue("@TipoLote", l.TipoLote);
+            cmd.Parameters.AddWithValue("@IdLimites", l.Limites.IdLimites);
+            cmd.Parameters.AddWithValue("@IdOperadorAnalise", l.OperadorAnalise.IdOperador);
+            cmd.Parameters.AddWithValue("@Observacao", l.Observacao);
             cmd.ExecuteNonQuery();
 
             FecharConexao();

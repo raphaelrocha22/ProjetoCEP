@@ -25,7 +25,6 @@
     });
 
     function ConfirmacaoAtivacaoLimite(id, data, modelo, carta, lsc, lc, lic) {
-        alert();
         $("#lblidLimite").html(id);
         $("#lbldataCalculo").html(data);
         $("#lblmodelo").html(modelo);
@@ -37,61 +36,66 @@
 
 </script>
 
-<h2>HistoricoLimites</h2>
+<div class="container">
 
-<div class="row">
-    <div class="col-md-10">
+    <h3>Historico de Limites Cadastrados</h3>
+    <a href="/AreaRestrita/CEP/Index">Voltar para a página inicial</a>
+    <hr />
 
-        <table class="table table-hover">
+    <div class="row">
+        <div class="col-md-10">
 
-            <thead>
-                <tr>
-                    <th>
-                        <style hidden>
-                            Id
-                        </style>
-                    </th>
-                    <th>Data Cálculo</th>
-                    <th>Modelo</th>
-                    <th>Carta</th>
-                    <th>LSC</th>
-                    <th>LC</th>
-                    <th>LIC</th>
-                    <th>Status</th>
-                    <th>Operações</th>
-                </tr>
-            </thead>
-            <tbody>
+            <table class="table table-hover">
 
-                @foreach (var item in Model)
-                {
+                <thead>
                     <tr>
-                        <td>
-                            <style hidden> @item.IdLimites </style>
-                        </td>
-                        <td>@item.DataCalculo</td>
-                        <td>@item.Modelo</td>
-                        <td>@item.Carta</td>
-                        <td>@item.LSC</td>
-                        <td>@item.LC</td>
-                        <td>@item.LIC</td>
-                        <td>@item.Status</td>
-                        <td>
-                            <button data-target='#AtivarLimiteModal' data-toggle='modal' onclick="ConfirmacaoAtivacaoLimite('@item.IdLimites','@item.DataCalculo','@item.Modelo','@item.Carta','@item.LSC','@item.LC','@item.LIC')"
-                                    class='btn btn-primary btn-xs'>
-                                Ativar esse limite
-                            </button>
-                        </td>
+                        <th>
+                            <style hidden>
+                                Id
+                            </style>
+                        </th>
+                        <th>Data Cálculo</th>
+                        <th>Modelo</th>
+                        <th>Carta</th>
+                        <th>LSC</th>
+                        <th>LC</th>
+                        <th>LIC</th>
+                        <th>Status</th>
+                        <th>Operações</th>
                     </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="6"> Resultados Encontrados: @Model.Count <span id="quantidade"></span> </td>
-                </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
 
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <style hidden> @item.IdLimites </style>
+                            </td>
+                            <td>@item.DataCalculo</td>
+                            <td>@item.Modelo</td>
+                            <td>@item.Carta</td>
+                            <td>@item.LSC</td>
+                            <td>@item.LC</td>
+                            <td>@item.LIC</td>
+                            <td>@item.Status</td>
+                            <td>
+                                <button data-target='#AtivarLimiteModal' data-toggle='modal' onclick="ConfirmacaoAtivacaoLimite('@item.IdLimites','@item.DataCalculo','@item.Modelo','@item.Carta','@item.LSC','@item.LC','@item.LIC')"
+                                        class='btn btn-primary btn-xs'>
+                                    Ativar esse limite
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"> Resultados Encontrados: @Model.Count <span id="quantidade"></span> </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
     </div>
 </div>
 
