@@ -303,5 +303,45 @@ namespace Projeto.DAL.Persistencias
 
             FecharConexao();
         }
+
+        public List<Lote> ObterLotesProducao(DateTime dataInicio, DateTime dataFim)
+        {
+            AbrirConexao();
+
+            string query = "select lote.*,an.Nome as 'OperadorAnalise', l.LSC, l.LC, l.LIC from Lote lote " +
+                "inner join Operador an on an.IdOperador = lote.IdOperadorAnalise " +
+                "inner join LimitesControle l on l.IdLimites = lote.IdLimites " +
+                "where lote.TipoLote = 'Producao' and lote.DataAnalise >= @DataInicio and lote.DataAnalise <= @DataFim";
+
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@DataInicio", dataInicio);
+            cmd.Parameters.AddWithValue("@DataFim", dataFim);
+            dr = cmd.ExecuteReader();
+
+            var lista = new List<Lote>();
+
+            while (dr.Read())
+            {
+                var l = new Lote();
+                l.OperadorAnalise = new Operador();
+                l.Limites = new LimitesControle();
+
+                l.IdLote = (int)dr["IdLote"];
+                l.NumeroLote = (int)dr["Lote"];
+                l.DataAnalise = (DateTime)dr["DataAnalise"];
+                l.OperadorAnalise.Nome = (string)dr["OperadorAnalise"];
+                l.TotalLentes = (int)dr["TotalLentes"];
+                l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
+                l.Percentual = (double)dr["Percentual"];
+                l.Status = (string)dr["Resultado"];
+                l.Limites.LSC = Convert.ToDouble(dr["LSC"]);
+                l.Limites.LC = Convert.ToDouble(dr["LC"]);
+                l.Limites.LIC = Convert.ToDouble(dr["LIC"]);
+
+                lista.Add(l);
+            }
+            FecharConexao();
+            return lista;
+        }
     }
 }

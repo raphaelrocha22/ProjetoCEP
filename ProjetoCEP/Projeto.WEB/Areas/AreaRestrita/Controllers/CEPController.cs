@@ -94,16 +94,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             return Json(l);
         }
 
-
-
-
-
-
-
-
-
-
-
+        
         public ActionResult CalcularLimites()
         {
             return View(new CalcularLimitesViewModel());
@@ -339,6 +330,40 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
+        public JsonResult ResultadoLotes(ConsultarLotesViewModel model)
+        {            
+            try
+            {
+                var d = new CepDAL();
+                var lista = new List<ConsultarLotesViewModel>();
+
+                foreach (var item in d.ObterLotesProducao(model.DataInicio, model.DataFim))
+                {
+                    var l = new ConsultarLotesViewModel();
+
+                    l.IdLote = item.IdLote;
+                    l.Lote = item.NumeroLote;
+                    l.DataAnalise = item.DataAnalise.ToString("dd/MM HH:mm");
+                    l.OperadorAnaliseNome = item.OperadorAnalise.Nome;
+                    l.TotalLentes = item.TotalLentes;
+                    l.QtdNaoConforme = item.QtdNaoConforme;
+                    l.Percentual = item.Percentual;
+                    l.Status = item.Status;
+                    l.LSC = item.Limites.LSC;
+                    l.LC = item.Limites.LC;
+                    l.LIC = item.Limites.LIC;
+                    l.Observacao = item.Observacao;
+
+                    lista.Add(l);
+                }
+
+                return Json(lista);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
 
     }
 }

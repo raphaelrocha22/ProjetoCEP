@@ -144,6 +144,7 @@
     <Compile Include="Areas\AreaRestrita\Models\CEP\CadastrarLoteViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\CEP\CalcularLimitesViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\CEP\ConsultarLimitesViewModel.cs" />
+    <Compile Include="Areas\AreaRestrita\Models\CEP\ConsultarLotesViewModel.cs" />
     <Compile Include="Areas\AreaRestrita\Models\Operador\OperadorViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

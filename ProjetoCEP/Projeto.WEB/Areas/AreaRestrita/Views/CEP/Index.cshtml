@@ -4,9 +4,12 @@
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
 
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/AreaRestrita/CEP/LimiteAtivo",
@@ -18,8 +21,78 @@
                 $('#lblLIC').html(limite.LIC);
             }
         });
+        
+        if ($("#DataInicio").val() == "" || $("#DataFim").val == "") {
+                        
+            $("#DataInicio").val(DataAtual());
+            $("#DataFim").val(DataAtual());
+        };       
+        
+        $("#btnConsultar").click(function () {
 
+            if ($('#DataInicio').val() <= $('#DataFim').val()) {
+                $('#msgData').hide();
+                ConsultarLotes();
+            }
+            else {
+                $('#msgData').show();
+            }
+
+            
+        });
     });
+
+    function DataAtual() {
+        var data = new Date(),
+            dia = (data.getDate() < 10 ? '0' : '') + (data.getDate()),
+            mes = (data.getMonth() + 1 < 10 ? '0' : '') + (data.getMonth() + 1),
+            ano = data.getFullYear();
+        return [ano, mes, dia].join('-');
+    };
+    
+    function ConsultarLotes() {
+        var model = {
+            DataInicio: $("#DataInicio").val(),
+            DataFim: $("#DataFim").val()
+        };
+        
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/CEP/ResultadoLotes',
+            data: model,
+            success:
+            function (lista) {
+
+                drawVisualization(lista);
+                bindTabela(lista);
+
+            },
+            error: function (e) {
+                alert(e.status);
+            }
+        });
+
+    };
+    
+    function drawVisualization(lista) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'DataAnalise');
+        data.addColumn('number', 'LSC');
+        data.addColumn('number', 'LC');
+        data.addColumn('number', 'LIC');
+        data.addColumn('number', 'Percentual');
+        for (var i = 0; i < lista.length; i++) {
+            data.addRow([lista[i].DataAnalise, lista[i].LSC, lista[i].LC, lista[i].LIC, lista[i].Percentual]);
+        };
+        var options = {
+            fontSize: 11,
+            title: 'Carta Controle',
+            legend: { position: 'top' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+    }
 
 </script>
 
@@ -114,6 +187,35 @@
                 </div>
                 <hr />
             }
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-2">
+            <label>Data Inicio:</label>
+            <input type="date" id="DataInicio" class="form-control" /><br />            
+        </div>
+
+        <div class="col-md-2">
+            <label>Data Fim:</label>
+            <input type="date" id="DataFim" class="form-control" /><br />
+        </div>
+
+        <div class="col-md-3">
+            <br />
+            <input type="button" value="Pesquisar" id="btnConsultar" class="btn btn-success" />
+        </div>
+
+    </div>
+
+    <div class="row">
+        <label class="text-danger" id="msgData" hidden="hidden">A data final não pode ser menor que a data inicial</label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="curve_chart" style="height:600px"></div>
         </div>
     </div>
 
