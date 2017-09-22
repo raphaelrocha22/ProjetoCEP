@@ -23,7 +23,6 @@
         });
         
         if ($("#DataInicio").val() == "" || $("#DataFim").val == "") {
-                        
             $("#DataInicio").val(DataAtual());
             $("#DataFim").val(DataAtual());
         };       
@@ -37,9 +36,11 @@
             else {
                 $('#msgData').show();
             }
-
-            
+                        
         });
+
+        ConsultarLotes();
+
     });
 
     function DataAtual() {
@@ -51,9 +52,10 @@
     };
     
     function ConsultarLotes() {
+
         var model = {
-            DataInicio: $("#DataInicio").val(),
-            DataFim: $("#DataFim").val()
+            DataInicio: $("#DataInicio").val() + " 00:00:00",
+            DataFim: $("#DataFim").val() + " 23:59:59"
         };
         
         $.ajax({
@@ -65,7 +67,6 @@
 
                 drawVisualization(lista);
                 bindTabela(lista);
-
             },
             error: function (e) {
                 alert(e.status);
@@ -92,10 +93,44 @@
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
         chart.draw(data, options);
+    };
+
+    function bindTabela(lista) {
+        var conteudo = "";
+        for (var i = 0; i < lista.length; i++) {
+            conteudo += "<tr>";
+
+            conteudo += "<td><style hidden>" + lista[i].IdLote + "</style></td>";
+            conteudo += "<td>" + lista[i].Lote + "</td>";
+            conteudo += "<td>" + lista[i].DataAnalise + "</td>";
+            conteudo += "<td>" + lista[i].OperadorAnaliseNome + "</td>";
+            conteudo += "<td>" + lista[i].TotalLentes + "</td>";
+            conteudo += "<td>" + lista[i].QtdNaoConforme + "</td>";
+            conteudo += "<td>" + lista[i].Percentual + "</td>";
+            conteudo += "<td>" + lista[i].Status + "</td>";
+            conteudo += "<td>" + lista[i].Observacao + "</td>";
+            //conteudo += "<td>" + lista[i].Observacao + "</td>";
+
+            conteudo += "<td>";
+            conteudo += "<button id='btnobs' class='btn btn-primary btn-sm' onclick='exibirObservacao()'> Observação </button>";
+            conteudo += "</td>";
+
+            conteudo += "</tr>";
+        };
+
+        $("#tabela tbody").html(conteudo);
+        //quantidade obtida..
+        $("#quantidade").html(lista.length);
+    };
+
+    function exibirObservacao() {
+        debugger;
+        var obs = $('#btnobs').parent().parent().val();
+        alert(obs);
+
     }
 
 </script>
-
 
 
 <div class="container">
@@ -219,8 +254,57 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tabela" class="table table-hover">
 
-
+                <thead>
+                    <tr>
+                        <th>
+                            <style hidden>
+                                Id
+                            </style>
+                        </th>
+                        <th>Lote</th>
+                        <th>Data Analise</th>
+                        <th>Operador Analise</th>
+                        <th>Total Lentes</th>
+                        <th>Qtd Reprov.</th>
+                        <th>% Reprov.</th>
+                        <th>Status</th>
+                        <th>
+                                Observacoes
+                        </th>
+                        <th>Operações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"> Quantidade de Amostras: <span id="quantidade"></span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
 </div>
+
+<!-- Modal Observacao -->
+<div class="modal fade" id="ObservacoesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h3>Observação</h3>
+            </div>
+            <div class="modal-body">
+
+                <span id="txtobservacao"></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 

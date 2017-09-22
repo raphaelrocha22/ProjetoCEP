@@ -337,6 +337,7 @@ namespace Projeto.DAL.Persistencias
                 l.Limites.LSC = Convert.ToDouble(dr["LSC"]);
                 l.Limites.LC = Convert.ToDouble(dr["LC"]);
                 l.Limites.LIC = Convert.ToDouble(dr["LIC"]);
+                l.Observacao = dr["Observacao"].ToString();
 
                 lista.Add(l);
             }
