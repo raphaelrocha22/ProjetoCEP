@@ -7,16 +7,6 @@ D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
 D:\IFRJ\Projeto TCC\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.dll
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.dll
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
-D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.dll
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
@@ -26,3 +16,13 @@ H:\Projeto CEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
 H:\Projeto CEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.DAL.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Entidades.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\bin\Debug\Projeto.Util.pdb
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csprojResolveAssemblyReference.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.csproj.CoreCompileInputs.cache
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.dll
+D:\Projetos\ProjetoCEP\ProjetoCEP\Projeto.DAL\obj\Debug\Projeto.DAL.pdb

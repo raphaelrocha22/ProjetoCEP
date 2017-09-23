@@ -48,7 +48,7 @@ namespace Projeto.WEB.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema";
+                    ViewBag.Mensagem = "Erro não esperado, por favor entre em contato com o administrador do sistema. Erro: "+e.Message;
                     Logger.LogErro(HttpContext.Server.MapPath("/bin/Logs/"), e);
                 }
             }

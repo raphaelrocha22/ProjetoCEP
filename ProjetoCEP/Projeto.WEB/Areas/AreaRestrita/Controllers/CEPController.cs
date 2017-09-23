@@ -330,7 +330,7 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
-        public JsonResult ResultadoLotes(ConsultarLotesViewModel model)
+        public JsonResult ObterLotes(ConsultarLotesViewModel model)
         {            
             try
             {
@@ -365,5 +365,34 @@ namespace Projeto.WEB.Areas.AreaRestrita.Controllers
             }
         }
 
+        public JsonResult ResultadoLotes(int id)
+        {
+            try
+            {
+                var d = new CepDAL();
+                return Json(d.ObterLoteProducaoPorId(id));
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+            
+        }
+
+        public JsonResult SalvarOBS(ConsultarLotesViewModel model)
+        {
+            try
+            {
+                var d = new CepDAL();
+                d.AtualizarOBS(model.IdLote, model.Observacao);
+
+                return Json("Observação Alterada com sucesso");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+        }
     }
 }

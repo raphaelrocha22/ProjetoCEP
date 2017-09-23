@@ -41,6 +41,29 @@
 
         ConsultarLotes();
 
+        $('#btnSalvarOBS').click(function () {
+            var model = {
+                IdLote: $('#idObs').html(),
+                Observacao: $('#txtobservacao').val()
+            };
+            
+            $.ajax({
+                type: 'POST',
+                url: '/AreaRestrita/CEP/SalvarOBS',
+                data: model,
+                success:
+                function (msg) {
+                    alert(msg);
+                    ConsultarLotes();
+                },
+                error: function (e) {
+                    alert(e.status);
+                }
+            });
+
+        });
+
+
     });
 
     function DataAtual() {
@@ -60,7 +83,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '/AreaRestrita/CEP/ResultadoLotes',
+            url: '/AreaRestrita/CEP/ObterLotes',
             data: model,
             success:
             function (lista) {
@@ -108,11 +131,9 @@
             conteudo += "<td>" + lista[i].QtdNaoConforme + "</td>";
             conteudo += "<td>" + lista[i].Percentual + "</td>";
             conteudo += "<td>" + lista[i].Status + "</td>";
-            conteudo += "<td>" + lista[i].Observacao + "</td>";
-            //conteudo += "<td>" + lista[i].Observacao + "</td>";
-
+            
             conteudo += "<td>";
-            conteudo += "<button id='btnobs' class='btn btn-primary btn-sm' onclick='exibirObservacao()'> Observação </button>";
+            conteudo += "<button data-target='#ObservacoesModal' data-toggle='modal' class='btn btn-primary btn-sm' onclick='exibirObservacao(" + lista[i].IdLote + ")'>Ver/Editar OBS <span class='glyphicon glyphicon-pencil'></span></button>";
             conteudo += "</td>";
 
             conteudo += "</tr>";
@@ -123,11 +144,34 @@
         $("#quantidade").html(lista.length);
     };
 
-    function exibirObservacao() {
-        debugger;
-        var obs = $('#btnobs').parent().parent().val();
-        alert(obs);
+    function exibirObservacao(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/CEP/ResultadoLotes',
+            data: "id=" + id,
+            success:
+            function (lote) {
 
+                $('#lblidObs').html(lote.IdLote);
+                $('#lblLote').html(lote.NumeroLote);
+                $('#lblDataAnalise').html(formatarData(lote.DataAnalise));
+                $('#lblOperadorAnalise').html(lote.OperadorAnalise.Nome);
+                $('#lblTotalLentes').html(lote.TotalLentes);
+                $('#lblQtdReprovado').html(lote.QtdNaoConforme);
+                $('#lblPercent').html(lote.Percentual);
+                $('#lblStatus').html(lote.Status);
+                $('#txtobservacao').html(lote.Observacao);
+            },
+            error: function (e) {
+                alert(e.status);
+            }
+        });
+
+    }
+
+    function formatarData(data) {
+        var value = new Date(parseInt(data.replace(/(^.*\()|([+-].*$)/g, '')));
+        return (value.getDate() < 10 ? '0' : '') + value.getDate() + "/" + (value.getMonth() < 10 ? '0' : '') + (value.getMonth() + 1) + "/" + value.getFullYear();
     }
 
 </script>
@@ -199,11 +243,11 @@
 
                     <div class="col-md-4 text-center">
                         @Html.LabelFor(m => m.Observacao)
-                        @Html.TextBoxFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+                        @Html.TextAreaFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
                     </div>
 
                     <div class="col-md-1">
-                        <input type="submit" value="Enviar" class="btn btn-primary" style="margin-top:24px" />
+                        <button type="submit"class="btn btn-primary" style="margin-top:24px">Enviar <span class="glyphicon glyphicon-arrow-up"></span></button>
                     </div>
 
                 </div>
@@ -238,8 +282,7 @@
         </div>
 
         <div class="col-md-3">
-            <br />
-            <input type="button" value="Pesquisar" id="btnConsultar" class="btn btn-success" />
+            <button id="btnConsultar" class="btn btn-success" style="margin-top:24px">Pesquisar <span class="glyphicon glyphicon-search"></span></button>
         </div>
 
     </div>
@@ -272,9 +315,6 @@
                         <th>Qtd Reprov.</th>
                         <th>% Reprov.</th>
                         <th>Status</th>
-                        <th>
-                                Observacoes
-                        </th>
                         <th>Operações</th>
                     </tr>
                 </thead>
@@ -295,12 +335,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h3>Observação</h3>
+                <h3>Editar Observação</h3>
             </div>
             <div class="modal-body">
 
-                <span id="txtobservacao"></span>
+                <strong>Id: </strong><span id="lblidObs"></span><br />
+                <strong>Lote: </strong><span id="lblLote"></span><br />
+                <strong>Data Análise: </strong><span id="lblDataAnalise"></span><br />
+                <strong>Operador Análise: </strong><span id="lblOperadorAnalise"></span><br />
+                <strong>Total Lentes: </strong><span id="lblTotalLentes"></span><br />
+                <strong>Qtd Reprovado: </strong><span id="lblQtdReprovado"></span><br />
+                <strong>% Reprov.: </strong><span id="lblPercent"></span><br />
+                <strong>Status: </strong><span id="lblStatus"></span><br />
+                <strong>Observação: </strong><br />
+                <textarea rows="6" cols="50" id="txtobservacao" placeholder="Digite aqui" class="form-control"></textarea>
 
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="btnSalvarOBS" class="btn btn-success" data-dismiss="modal">Salvar</button>
             </div>
         </div>
     </div>

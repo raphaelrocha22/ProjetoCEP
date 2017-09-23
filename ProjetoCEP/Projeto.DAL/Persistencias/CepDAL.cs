@@ -344,5 +344,54 @@ namespace Projeto.DAL.Persistencias
             FecharConexao();
             return lista;
         }
+
+
+
+        public Lote ObterLoteProducaoPorId(int id)
+        {
+            AbrirConexao();
+
+            string query = "select l.*,an.Nome as 'OperadorAnalise' from Lote l " +
+                "inner join Operador an on l.IdOperadorAnalise = an.IdOperador where IdLote = @id";
+
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            dr = cmd.ExecuteReader();
+
+            Lote l = null;
+
+            if (dr.Read())
+            {
+                l = new Lote();
+                l.OperadorAnalise = new Operador();
+
+                l.IdLote = (int)dr["IdLote"];
+                l.NumeroLote = (int)dr["Lote"];
+                l.DataAnalise = (DateTime)dr["DataAnalise"];
+                l.OperadorAnalise.Nome = (string)dr["OperadorAnalise"];
+                l.TotalLentes = (int)dr["TotalLentes"];
+                l.QtdNaoConforme = (int)dr["QtdNaoConforme"];
+                l.Percentual = (double)dr["Percentual"];
+                l.Status = (string)dr["Resultado"];
+                l.Observacao = dr["Observacao"].ToString();
+            }
+            
+            FecharConexao();
+
+            return l;
+        }
+
+        public void AtualizarOBS(int id, string OBS)
+        {
+            AbrirConexao();
+
+            string query = "update Lote set Observacao = @obs where IdLote = @id";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@obs", OBS);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteReader();
+
+            FecharConexao();
+        }
     }
 }
