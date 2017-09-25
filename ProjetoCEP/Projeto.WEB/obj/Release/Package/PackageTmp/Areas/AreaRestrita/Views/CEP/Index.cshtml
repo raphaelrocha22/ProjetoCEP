@@ -1,11 +1,367 @@
-﻿
+﻿@model  Projeto.WEB.Areas.AreaRestrita.Models.CEP.CadastrarLoteViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/AreaRestrita/CEP/LimiteAtivo",
+            success: function (limite) {
+                $('#lblModelo').html(limite.TipoCarta.Modelo);
+                $('#lblCarta').html(limite.TipoCarta.Carta);
+                $('#lblLSC').html(limite.LSC);
+                $('#lblLC').html(limite.LC);
+                $('#lblLIC').html(limite.LIC);
+            }
+        });
+
+        
+        if ($("#DataInicio").val() == "" || $("#DataFim").val == "") {
+            $("#DataInicio").val(DataAtual());
+            $("#DataFim").val(DataAtual());
+        };       
+        
+        $("#btnConsultar").click(function () {
+
+            if ($('#DataInicio').val() <= $('#DataFim').val()) {
+                $('#msgData').hide();
+                ConsultarLotes();
+            }
+            else {
+                $('#msgData').show();
+            }
+                        
+        });
+
+        $('#btnSalvarOBS').click(function () {
+            var model = {
+                IdLote: $('#idObs').html(),
+                Observacao: $('#txtobservacao').val()
+            };
+            
+            $.ajax({
+                type: 'POST',
+                url: '/AreaRestrita/CEP/SalvarOBS',
+                data: model,
+                success:
+                function (msg) {
+                    alert(msg);
+                    ConsultarLotes();
+                },
+                error: function (e) {
+                    alert(e.status);
+                }
+            });
+
+        });
+
+        ConsultarLotes();
+
+    });
+
+    function DataAtual() {
+        
+        var data = new Date(),
+            dia = (data.getDate() < 10 ? '0' : '') + (data.getDate()),
+            mes = (data.getMonth() + 1 < 10 ? '0' : '') + (data.getMonth() + 1),
+            ano = data.getFullYear();
+        return [ano, mes, dia].join('-');
+    };
+    
+    function ConsultarLotes() {
+        
+        var model = {
+            DataInicio: $("#DataInicio").val() + " 00:00:00",
+            DataFim: $("#DataFim").val() + " 23:59:59"
+        };
+        
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/CEP/ObterLotes',
+            data: model,
+            success:
+            function (lista) {
+
+                drawVisualization(lista);
+                bindTabela(lista);
+            },
+            error: function (e) {
+                alert(e.status);
+            }
+        });
+    };
+    
+    function drawVisualization(lista) {
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'DataAnalise');
+        data.addColumn('number', 'LSC');
+        data.addColumn('number', 'LC');
+        data.addColumn('number', 'LIC');
+        data.addColumn('number', 'Percentual');
+        for (var i = 0; i < lista.length; i++) {
+            data.addRow([lista[i].DataAnalise, lista[i].LSC, lista[i].LC, lista[i].LIC, lista[i].Percentual]);
+        };
+        var options = {
+            fontSize: 11,
+            title: 'Carta Controle',
+            legend: { position: 'top' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+    };
+
+    function bindTabela(lista) {
+        
+        var conteudo = "";
+        for (var i = 0; i < lista.length; i++) {
+            conteudo += "<tr>";
+
+            conteudo += "<td><style hidden>" + lista[i].IdLote + "</style></td>";
+            conteudo += "<td>" + lista[i].Lote + "</td>";
+            conteudo += "<td>" + lista[i].DataAnalise + "</td>";
+            conteudo += "<td>" + lista[i].OperadorAnaliseNome + "</td>";
+            conteudo += "<td>" + lista[i].TotalLentes + "</td>";
+            conteudo += "<td>" + lista[i].QtdNaoConforme + "</td>";
+            conteudo += "<td>" + lista[i].Percentual + "</td>";
+            conteudo += "<td>" + lista[i].Status + "</td>";
+            
+            conteudo += "<td>";
+            conteudo += "<button data-target='#ObservacoesModal' data-toggle='modal' class='btn btn-primary btn-sm' onclick='exibirObservacao(" + lista[i].IdLote + ")'>Ver/Editar OBS <span class='glyphicon glyphicon-pencil'></span></button>";
+            conteudo += "</td>";
+
+            conteudo += "</tr>";
+        };
+
+        $("#tabela tbody").html(conteudo);
+        //quantidade obtida..
+        $("#quantidade").html(lista.length);
+    };
+
+    function exibirObservacao(id) {
+        
+        $.ajax({
+            type: 'POST',
+            url: '/AreaRestrita/CEP/ResultadoLotes',
+            data: "id=" + id,
+            success:
+            function (lote) {
+
+                $('#lblidObs').html(lote.IdLote);
+                $('#lblLote').html(lote.NumeroLote);
+                $('#lblDataAnalise').html(formatarData(lote.DataAnalise));
+                $('#lblOperadorAnalise').html(lote.OperadorAnalise.Nome);
+                $('#lblTotalLentes').html(lote.TotalLentes);
+                $('#lblQtdReprovado').html(lote.QtdNaoConforme);
+                $('#lblPercent').html(lote.Percentual);
+                $('#lblStatus').html(lote.Status);
+                $('#txtobservacao').html(lote.Observacao);
+            },
+            error: function (e) {
+                alert(e.status);
+            }
+        });
+
+    }
+
+    function formatarData(data) {
+        
+        var value = new Date(parseInt(data.replace(/(^.*\()|([+-].*$)/g, '')));
+        return (value.getDate() < 10 ? '0' : '') + value.getDate() + "/" + (value.getMonth() < 10 ? '0' : '') + (value.getMonth() + 1) + "/" + value.getFullYear();
+    }
+
+</script>
+
+
 <div class="container">
-    <h2>Index</h2>
+    <h3>Controle Estatístico de Processo</h3>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-10">
+                    <strong>Modelo: </strong><label id="lblModelo"></label> /
+                    <strong>Carta: </strong><label id="lblCarta"></label> /
+                    <strong>LSC: </strong><label id="lblLSC"></label> /
+                    <strong>LC: </strong><label id="lblLC"></label> /
+                    <strong>LIC: </strong><label id="lblLIC"></label> /
+                </div>
+            </div>
+
+            <br />
+            <h4>Cadastrar Lotes:</h4>
+            <br />
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <div class="row">
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.Lote)
+                        @Html.TextBoxFor(m => m.Lote, new { @class = "form-control text-center", @placeholder = "Digite aqui" })
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        @Html.LabelFor(m => m.DataAnalise)
+                        @Html.TextBoxFor(m => m.DataAnalise, new { @class = "form-control text-center", @type = "datetime-local" })
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        @Html.LabelFor(m => m.IdOperadorAnalise)
+                        @Html.DropDownListFor(m => m.IdOperadorAnalise,
+                                    Model.ListagemOperador,
+                                    "- Selecione uma opção -",
+                                    new { @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top:20px">
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.TotaLentes)
+                        @Html.TextBoxFor(m => m.TotaLentes, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "TotalLentes" })
+                    </div>
+
+                    <div class="col-md-2 text-center">
+                        @Html.LabelFor(m => m.QtdNaoConforme)
+                        @Html.TextBoxFor(m => m.QtdNaoConforme, new { @class = "form-control text-center", @placeholder = "Digite aqui", @id = "QtdNaoConforme" })
+                    </div>
+
+                    <div class="col-md-1">
+                        <label>% Reprov.</label><br />
+                        <input type="text" id="Percent" class="form-control text-center" readonly="readonly" />
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        @Html.LabelFor(m => m.Observacao)
+                        @Html.TextAreaFor(m => m.Observacao, new { @class = "form-control", @placeholder = "Digite Aqui" })
+                    </div>
+
+                    <div class="col-md-1">
+                        <button type="submit"class="btn btn-primary" style="margin-top:24px">Enviar <span class="glyphicon glyphicon-arrow-up"></span></button>
+                    </div>
+
+                </div>
+
+
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-11 text-center">
+
+                        @if (TempData["MensagemCadastro"] != null)
+                        {<div class="alert alert-success"> <strong>@TempData["MensagemCadastro"]</strong> </div>}
+
+                        @if (TempData["MensagemErro"] != null)
+                        {<div class="alert alert-danger"> <strong>@TempData["MensagemErro"]</strong> </div>}
+
+                    </div>
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-2">
+            <label>Data Inicio:</label>
+            <input type="date" id="DataInicio" class="form-control" /><br />            
+        </div>
+
+        <div class="col-md-2">
+            <label>Data Fim:</label>
+            <input type="date" id="DataFim" class="form-control" /><br />
+        </div>
+
+        <div class="col-md-3">
+            <button id="btnConsultar" class="btn btn-success" style="margin-top:24px">Pesquisar <span class="glyphicon glyphicon-search"></span></button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <label class="text-danger" id="msgData" hidden="hidden">A data final não pode ser menor que a data inicial</label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="curve_chart" style="height:600px"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tabela" class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>
+                            <style hidden>
+                                Id
+                            </style>
+                        </th>
+                        <th>Lote</th>
+                        <th>Data Analise</th>
+                        <th>Operador Analise</th>
+                        <th>Total Lentes</th>
+                        <th>Qtd Reprov.</th>
+                        <th>% Reprov.</th>
+                        <th>Status</th>
+                        <th>Operações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"> Quantidade de Amostras: <span id="quantidade"></span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
 </div>
+
+<!-- Modal Observacao -->
+<div class="modal fade" id="ObservacoesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h3>Editar Observação</h3>
+            </div>
+            <div class="modal-body">
+
+                <strong>Id: </strong><span id="lblidObs"></span><br />
+                <strong>Lote: </strong><span id="lblLote"></span><br />
+                <strong>Data Análise: </strong><span id="lblDataAnalise"></span><br />
+                <strong>Operador Análise: </strong><span id="lblOperadorAnalise"></span><br />
+                <strong>Total Lentes: </strong><span id="lblTotalLentes"></span><br />
+                <strong>Qtd Reprovado: </strong><span id="lblQtdReprovado"></span><br />
+                <strong>% Reprov.: </strong><span id="lblPercent"></span><br />
+                <strong>Status: </strong><span id="lblStatus"></span><br />
+                <strong>Observação: </strong><br />
+                <textarea rows="6" cols="50" id="txtobservacao" placeholder="Digite aqui" class="form-control"></textarea>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="btnSalvarOBS" class="btn btn-success" data-dismiss="modal">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 

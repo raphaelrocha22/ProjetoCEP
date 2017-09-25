@@ -14,9 +14,11 @@
             url: '/AreaRestrita/CEP/ResultadoCalculoLimitesData',
             success:
             function (lista) {
-                $('#LSC').html(lista[0].LSC);
-                $('#LC').html(lista[0].LC);
-                $('#LIC').html(lista[0].LIC);
+
+                $('#DataCalculo').html(lista[0].DataCalculo);
+                $('#LSC').html(String(lista[0].LSC).replace(".", ","));
+                $('#LC').html(String(lista[0].LC).replace(".", ","));
+                $('#LIC').html(String(lista[0].LIC).replace(".",","));
 
                 drawVisualization(lista);
                 bindTabela(lista);
@@ -24,6 +26,27 @@
             error: function (e) {
                 alert(e.status);
             }
+        });
+
+        $("#btnCadastrarLimites").click(function () {     
+            var model = {
+                DataCalculo: $("#DataCalculo").html(),
+                LSC: $("#LSC").html(),
+                LC: $("#LC").html(),
+                LIC: $("#LIC").html()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/AreaRestrita/CEP/CadastrarLimites",
+                data: model,
+                success: function (msg) {
+                    alert(msg);
+                    $(location).attr('href', '/AreaRestrita/CEP/Index');
+                },
+                error: function (e) {
+                    alert(e)
+                }
+            });
         });
     });
 
@@ -44,7 +67,7 @@
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data,options);
+        chart.draw(data, options);
     }
 
     function bindTabela(lista) {
@@ -82,17 +105,22 @@
 
 <div class="container">
 
-    <h3>Carta Controle</h3>
-    Se for necessário fazer alguma mudança nos lotes utilizados no cálculo, volte para a página de <a href="/AreaRestrita/CEP/CalcularLimites">Cálculo dos Limites</a>, realize a alteração e gere um novo Cálculo
+    <h3>Limites de Controle</h3>
+    Se for necessário fazer alguma mudança nas amostras utilizadas no cálculo, volte para a página de <a href="/AreaRestrita/CEP/CalcularLimites">Cálculo dos Limites</a>, realize as alterações e gere um novo Cálculo.
     <hr />
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
 
+            <strong>Data Cálculo: </strong><label id="DataCalculo"></label>
             <strong>LSC: </strong><label id="LSC"></label>
             <strong>LC: </strong><label id="LC"></label>
             <strong>LIC: </strong><label id="LIC"></label>
 
+        </div>
+
+        <div class="col-md-3 pull-right">
+            <button data-target='#CadastrarLimites' data-toggle='modal' class="btn btn-success">Cadastrar limites de controle</button>
         </div>
     </div>
 
@@ -106,7 +134,10 @@
 
         <thead>
             <tr>
-                <th><style hidden>Id</style></th>
+                <th>
+                <style hidden>
+                    Id
+                </style></th>
                 <th>Lote</th>
                 <th>Data Analise</th>
                 <th>Operador Analise</th>
@@ -114,13 +145,14 @@
                 <th>Qtd Reprov.</th>
                 <th>% Reprov.</th>
                 <th>Status</th>
-                <th><style hidden>Observacoes</style></th>
+                <th>
+                <style hidden>
+                    Observacoes
+                </style></th>
                 <th>Operações</th>
             </tr>
         </thead>
-        <tbody>
-           
-        </tbody>
+        <tbody></tbody>
         <tfoot>
             <tr>
                 <td colspan="6"> Quantidade de Amostras: <span id="quantidade"></span></td>
@@ -145,6 +177,25 @@
     </div>
 </div>
 
+<!-- Modal Confirmação Calculo Limite -->
+<div class="modal fade" id="CadastrarLimites">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h3><strong>ATENÇÃO</strong></h3>
+            </div>
+            <div class="modal-body">
+
+                <h4>Deseja cadastrar esses limites de controle no sistema ?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">NÃO</button>
+                <button id="btnCadastrarLimites" class="btn btn-success" data-dismiss="modal">SIM</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

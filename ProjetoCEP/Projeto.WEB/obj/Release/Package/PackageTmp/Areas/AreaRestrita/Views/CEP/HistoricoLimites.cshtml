@@ -1,8 +1,127 @@
-﻿
+﻿@model List<Projeto.WEB.Areas.AreaRestrita.Models.CEP.ConsultarLimitesViewModel>
 @{
     ViewBag.Title = "HistoricoLimites";
     Layout = "~/Areas/AreaRestrita/Views/Shared/_Layout.cshtml";
 }
 
-<h2>HistoricoLimites</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnConfirmacao').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/AreaRestrita/CEP/AtivarLimite",
+                data: "id=" + $("#lblidLimite").html(),
+                success: function (msg) {
+                    alert(msg);
+                    $(location).attr('href', '/AreaRestrita/CEP/HistoricoLimites');
+                },
+                error: function (e) {
+                    $("#mensagem").html("Erro: " + e.status);
+                }
+            });
+
+        });
+    });
+
+    function ConfirmacaoAtivacaoLimite(id, data, modelo, carta, lsc, lc, lic) {
+        $("#lblidLimite").html(id);
+        $("#lbldataCalculo").html(data);
+        $("#lblmodelo").html(modelo);
+        $("#lblcarta").html(carta);
+        $("#lbllsc").html(lsc);
+        $("#lbllc").html(lc);
+        $("#lbllic").html(lic);
+    }
+
+</script>
+
+<div class="container">
+
+    <h3>Historico de Limites Cadastrados</h3>
+    <a href="/AreaRestrita/CEP/Index">Voltar para a página inicial</a>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-10">
+
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>
+                            <style hidden>
+                                Id
+                            </style>
+                        </th>
+                        <th>Data Cálculo</th>
+                        <th>Modelo</th>
+                        <th>Carta</th>
+                        <th>LSC</th>
+                        <th>LC</th>
+                        <th>LIC</th>
+                        <th>Status</th>
+                        <th>Operações</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <style hidden> @item.IdLimites </style>
+                            </td>
+                            <td>@item.DataCalculo</td>
+                            <td>@item.Modelo</td>
+                            <td>@item.Carta</td>
+                            <td>@item.LSC</td>
+                            <td>@item.LC</td>
+                            <td>@item.LIC</td>
+                            <td>@item.Status</td>
+                            <td>
+                                <button data-target='#AtivarLimiteModal' data-toggle='modal' onclick="ConfirmacaoAtivacaoLimite('@item.IdLimites','@item.DataCalculo','@item.Modelo','@item.Carta','@item.LSC','@item.LC','@item.LIC')"
+                                        class='btn btn-primary btn-xs'>
+                                    Ativar esse limite
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"> Resultados Encontrados: @Model.Count <span id="quantidade"></span> </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Observacao -->
+<div class="modal fade" id="AtivarLimiteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h3>Deseja Tornar esse limite como padrão?</h3>
+            </div>
+            <div class="modal-body">
+                Id: <label id="lblidLimite"></label><br />
+                Data Cálculo: <label id="lbldataCalculo"></label><br />
+                Modelo: <label id="lblmodelo"></label><br />
+                Carta: <label id="lblcarta"></label><br />
+                LSC: <label id="lbllsc"></label><br />
+                LC: <label id="lbllc"></label><br />
+                LIC: <label id="lbllic"></label><br />
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmacao" class="btn btn-danger"
+                        data-dismiss="modal">
+                    SIM
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 

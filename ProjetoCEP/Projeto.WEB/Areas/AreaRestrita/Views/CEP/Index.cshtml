@@ -21,6 +21,7 @@
                 $('#lblLIC').html(limite.LIC);
             }
         });
+
         
         if ($("#DataInicio").val() == "" || $("#DataFim").val == "") {
             $("#DataInicio").val(DataAtual());
@@ -38,8 +39,6 @@
             }
                         
         });
-
-        ConsultarLotes();
 
         $('#btnSalvarOBS').click(function () {
             var model = {
@@ -63,10 +62,12 @@
 
         });
 
+        ConsultarLotes();
 
     });
 
     function DataAtual() {
+        
         var data = new Date(),
             dia = (data.getDate() < 10 ? '0' : '') + (data.getDate()),
             mes = (data.getMonth() + 1 < 10 ? '0' : '') + (data.getMonth() + 1),
@@ -75,7 +76,7 @@
     };
     
     function ConsultarLotes() {
-
+        
         var model = {
             DataInicio: $("#DataInicio").val() + " 00:00:00",
             DataFim: $("#DataFim").val() + " 23:59:59"
@@ -95,10 +96,10 @@
                 alert(e.status);
             }
         });
-
     };
     
     function drawVisualization(lista) {
+        
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'DataAnalise');
         data.addColumn('number', 'LSC');
@@ -119,6 +120,7 @@
     };
 
     function bindTabela(lista) {
+        
         var conteudo = "";
         for (var i = 0; i < lista.length; i++) {
             conteudo += "<tr>";
@@ -145,6 +147,7 @@
     };
 
     function exibirObservacao(id) {
+        
         $.ajax({
             type: 'POST',
             url: '/AreaRestrita/CEP/ResultadoLotes',
@@ -170,6 +173,7 @@
     }
 
     function formatarData(data) {
+        
         var value = new Date(parseInt(data.replace(/(^.*\()|([+-].*$)/g, '')));
         return (value.getDate() < 10 ? '0' : '') + value.getDate() + "/" + (value.getMonth() < 10 ? '0' : '') + (value.getMonth() + 1) + "/" + value.getFullYear();
     }
